@@ -14,13 +14,17 @@ const mix = require('laravel-mix');
 mix.postCss('resources/css/app.css', 'public/css', [
         //
     ])
+    .js('resources/js/dashboard.js', 'public/js')
  	.postCss('resources/vendor/bootstrap/css/bootstrap.min.css', 'public/css')
     .postCss('resources/vendor/icofont/icofont.min.css', 'public/css')
     .postCss('resources/vendor/boxicons/css/boxicons.min.css', 'public/css')
     .postCss('resources/vendor/venobox/venobox.css', 'public/css')
     .postCss('resources/vendor/owl.carousel/assets/owl.carousel.min.css', 'public/css')
     .postCss('resources/vendor/aos/aos.css', 'public/css')
-    .postCss('resources/css/style.css', 'public/css');
+    .postCss('resources/css/style.css', 'public/css')
+    .postCss('resources/css/dashboard.css', 'public/css')
+    .postCss('resources/css/css/bootstrap.min.css', 'public/css/css/bootstrap2.min.css');
+
 
 mix.scripts([
     'resources/vendor/jquery/jquery.min.js',
@@ -34,6 +38,11 @@ mix.scripts([
     'resources/vendor/aos/aos.js',
     'resources/js/main.js'
 ], 'public/js/js.js');
+
+mix.scripts([
+    'resources/vendor/bootstrap/js/bootstrap.bundle.min.js'
+
+], 'public/js/bootstrap.bundle.min.js');
 
 
 if(mix.inProduction())

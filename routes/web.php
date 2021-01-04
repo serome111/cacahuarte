@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
 Route::get('/base', function () {
     return view('admin/dashboard');
-});
+})->name('dashboard');
 
+// Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
+Route::resource('banner','App\Http\Controllers\bannerController');
