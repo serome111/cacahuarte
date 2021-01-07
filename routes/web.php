@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::resource('/','App\Http\Controllers\IndexController');
 Route::get('/base', function () {
     return view('admin/dashboard');
 })->name('dashboard');

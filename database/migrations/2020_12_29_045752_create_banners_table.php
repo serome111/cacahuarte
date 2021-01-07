@@ -18,10 +18,10 @@ class CreateBannersTable extends Migration
             $table->integer('user_id')->unsigned()->default(0);
             $table->string('title');
             $table->text('description');
-            $table->string('picture', 255)->default('0');
-            $table->string('button');
-            $table->string('link',30);
-            $table->integer('state');
+            $table->string('photo', 255)->default('0');
+            // $table->string('button');
+            // $table->string('link',30);
+            $table->integer('state')->default('0');
             $table->timestamps();
         });
     }
