@@ -4,8 +4,9 @@
 
         <div class="row">
           <div class="col-xl-4 col-lg-5" data-aos="fade-up">
+            
             <div class="content">
-              <h3>por que comprar productos de cacao?</h3>
+              <h3>¿por qué consumir cacao?</h3>
               <p>
                 Los productos de cacao, tienen contenido altanmente potentes que te ayudan y benefician en el circulamiento de la sangre para mejorar tu corazon y etc..
               </p>
@@ -13,6 +14,7 @@
                 <a href="#" class="more-btn">quieres enterarte de más? <i class="bx bx-chevron-right"></i></a>
               </div>
             </div>
+            
           </div>
           <div class="col-xl-8 col-lg-7 d-flex">
             <div class="icon-boxes d-flex flex-column justify-content-center">

@@ -26,7 +26,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ mix('css/style.css')}}" rel="stylesheet">
-
+  
   <!-- =======================================================
   * Template Name: Flexor - v3.0.0
   * Template URL: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/

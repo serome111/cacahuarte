@@ -13,7 +13,7 @@ class CreateWhyUsesTable extends Migration
      */
     public function up()
     {
-        Schema::create('why-uses', function (Blueprint $table) {
+        Schema::create('why_us', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->unsigned()->default(0);
             $table->string('title');

@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\bannerController;
+use App\Http\Controllers\WhyAboutUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,4 +23,7 @@ Route::get('/base', function () {
 })->name('dashboard');
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
-Route::resource('banner','App\Http\Controllers\bannerController');
+Route::resource('banner', bannerController::class);
+
+//tarjetas why-about-us
+Route::resource('why-about-us', WhyAboutUsController::class);
