@@ -15,9 +15,7 @@ use App\Http\Controllers\WhyAboutUsController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::resource('/','App\Http\Controllers\IndexController');
 Route::get('/base', function () {
     return view('admin/dashboard');
 })->name('dashboard');

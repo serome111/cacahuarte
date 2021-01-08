@@ -15,7 +15,7 @@ mix.postCss('resources/css/app.css', 'public/css', [
         //
     ])
     .js('resources/js/dashboard.js', 'public/js')
- 	.postCss('resources/vendor/bootstrap/css/bootstrap.min.css', 'public/css')
+    .postCss('resources/vendor/bootstrap/css/bootstrap.min.css', 'public/css')
     .postCss('resources/vendor/icofont/icofont.min.css', 'public/css')
     .postCss('resources/vendor/boxicons/css/boxicons.min.css', 'public/css')
     .postCss('resources/vendor/venobox/venobox.css', 'public/css')
