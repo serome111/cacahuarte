@@ -21,4 +21,4 @@ Cacahuarte is a web application with desing expressive, elegant syntax. We belie
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The application web Cacahuarte is  open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
