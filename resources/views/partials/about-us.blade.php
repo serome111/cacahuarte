@@ -6,7 +6,6 @@
       <div class="col-xl-5 col-lg-6 video-box d-flex justify-content-center align-items-stretch position-relative" data-aos="fade-right">
         <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
       </div>
-
       <div class="col-xl-7 col-lg-6 icon-boxes d-flex flex-column align-items-stretch justify-content-center py-5 px-lg-5">
         <h4 data-aos="fade-up">Sobre nosotros</h4>
         <h3 data-aos="fade-up">Equipo de mujeres emprendedoras</h3>

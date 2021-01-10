@@ -20,3 +20,4 @@ Route::get('/base', function () {
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner','App\Http\Controllers\bannerController');
+Route::resource('about_as','App\Http\Controllers\AboutUsController');
