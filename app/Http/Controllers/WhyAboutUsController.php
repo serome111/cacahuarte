@@ -3,10 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
+//para hacer consultas join
+use Illuminate\Support\Facades\DB;
 // se importa el modelo
 use App\Models\WhyAboutUs;
 use Carbon\Carbon;
+use App\Models\Icon;
+
+//validacion
+use App\Http\Requests\CreateTarjetasRequest;
 
 class WhyAboutUsController extends Controller
 {
@@ -17,12 +24,13 @@ class WhyAboutUsController extends Controller
      */
     public function index()
     {
-        $tarjetas=WhyAboutUs::all();
-        $fecha=Carbon::now();
-        // return view('admin.why-about-us.index',[
-        //     'tarjetas' => WhyAboutUs::get()
-        // ]);
-        return view('admin.why-about-us.why-about-us',compact('tarjetas'));
+        // $tarjetas=WhyAboutUs::all();
+        // $iconos=Icon::all();
+        $cardCompleta = DB::table('why_about_us')
+            ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
+            ->select('why_about_us.*','icons.icon_class')
+            ->get();
+        return view('admin.why-about-us.why-about-us',compact('cardCompleta'));
 
     }
 
@@ -33,7 +41,9 @@ class WhyAboutUsController extends Controller
      */
     public function create()
     {
-       return view('admin.why-about-us.create');
+    	$tarjeta = new WhyAboutUs; 
+    	$iconos = Icon::all();
+       return view('admin.why-about-us.create',compact('tarjeta','iconos'));
     }
 
     /**
@@ -42,9 +52,11 @@ class WhyAboutUsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateTarjetasRequest $request)
     {
-        //
+        $datos = $request->all();
+        WhyAboutUs::create($datos);
+        return redirect('why-about-us')->with('status','Tarjeta creada con éxito');
     }
 
     /**
@@ -66,7 +78,14 @@ class WhyAboutUsController extends Controller
      */
     public function edit($id)
     {
-        //
+    	$iconos = Icon::all();
+    	$tarjetas = DB::table('why_about_us')
+            ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
+            ->select('why_about_us.*','icons.icon_hex_code', 'icons.icon_name')
+            ->where('why_about_us.id','=',$id)
+            ->get();
+        return view('admin.why-about-us.edit',compact('tarjetas','iconos'));
+           
     }
 
     /**
@@ -76,9 +95,12 @@ class WhyAboutUsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateTarjetasRequest $request, $id)
     {
-        //
+        // WhyAboutUs::where('id',$id)->update($request->all());
+        $tarjeta = WhyAboutUs::findOrFail($id);
+        $tarjeta->update($request->all());
+        return redirect('why-about-us')->with('status','Tarjeta actualizada con éxito');
     }
 
     /**
@@ -89,6 +111,10 @@ class WhyAboutUsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tarjeta = WhyAboutUs::findOrFail($id);
+		
+		$tarjeta->delete();
+		
+		return redirect("why-about-us")->with('status','Tarjeta eliminada con éxito');
     }
 }
