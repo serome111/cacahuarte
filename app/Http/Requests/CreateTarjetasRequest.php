@@ -27,7 +27,6 @@ class CreateTarjetasRequest extends FormRequest
             'icon_id' => 'required', 
             'title' => 'required', 
             'description' => 'required',
-            'state' => 'required'
         ];
     }
 
@@ -36,8 +35,7 @@ class CreateTarjetasRequest extends FormRequest
         return [
             'icon_id.required' => 'Debes selccionar un ícono',
             'title.required'  => 'El título es requerido',
-            'description.required'  => 'La descripción es requerida',
-            'state.required'  => 'Debes seleccionar un estado'
+            'description.required'  => 'La descripción es requerida'
         ];
     }
 }
