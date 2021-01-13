@@ -16,6 +16,16 @@
   <!-- Vendor CSS Files -->
   <link rel="stylesheet" type="text/css" href="{{ mix('css/css/bootstrap2.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{ mix('css/dashboard.css')}}">
+
+  <link rel="stylesheet" type="text/css" href="{{ mix('css/bootstrap.min.css')}}">
+  <link href="{{ mix('css/icofont.min.css')}}" rel="stylesheet">
+  <link href="{{ mix('css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{ mix('css/venobox.css')}}" rel="stylesheet">
+  <link href="{{ mix('css/owl.carousel.min.css')}}" rel="stylesheet">
+  <link href="{{ mix('css/aos.css')}}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{ mix('css/style.css')}}" rel="stylesheet">
 </head>
 
 <body>
@@ -50,9 +60,9 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('why-about-us.index') }}">
               <span data-feather="edit"></span>
-              por que nosotros?
+              ¿por qué nosotros?
             </a>
           </li>
           <li class="nav-item">
