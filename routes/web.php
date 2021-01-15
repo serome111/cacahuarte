@@ -23,7 +23,7 @@ Route::get('/base', function () {
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner', bannerController::class);
-Route::resource('about_as',AboutUsController::class);
+Route::resource('about_us',AboutUsController::class);
 
 //tarjetas why-about-us
 Route::resource('why-about-us', WhyAboutUsController::class);

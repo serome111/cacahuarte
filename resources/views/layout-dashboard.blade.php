@@ -66,7 +66,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('about_as.index') }}">
+            <a class="nav-link" href="{{ route('about_us.index') }}">
               <span data-feather="users"></span>
               Acerca de nosotros
             </a>

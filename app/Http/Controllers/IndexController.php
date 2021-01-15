@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AboutUs;
 use App\Models\Banners;
 use App\Models\WhyAboutUs;
 use Illuminate\Http\Request;
@@ -19,10 +20,15 @@ class IndexController extends Controller
             'banners' => Banners::where('state', 1)->get(),
             'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
                 ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
-                ->get()
+                ->get(),
+            'about_us' => AboutUs::select('about_us.*','ic.icon_class AS icon1','ic2.icon_class AS icon2','ic3.icon_class AS icon3')
+            ->join('icons as ic',  'about_us.favicon1', '=', 'ic.id')
+            ->join('icons as ic2', 'about_us.favicon2', '=', 'ic2.id')
+            ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
+            ->get()
         ]);
-    }
 
+    }
     /**
      * Show the form for creating a new resource.
      *

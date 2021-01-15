@@ -6,7 +6,6 @@
 @section('content')
 
 <main class="col-md-12 ms-sm-auto col-lg-10 px-md-4 p-4">
-
 	<h2 class="text-center display-4">Tarjetas</h2>
 	<p class="text-center text-muted h3">Aquí puede editar el contenido de las tarjetas informativas</p>
 	<div class="row ">
@@ -29,11 +28,12 @@
 					</div>
 			    </div>
 		    @endif
+
 			@empty
 				<p class="text-muted h5">No hay tarjetas para mostrar</p>
-			@endforelse
+		@endforelse
 	</div>
 
 </main>
 
-@endsection()
+@endsection
