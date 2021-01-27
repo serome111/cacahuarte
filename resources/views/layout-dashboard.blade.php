@@ -72,6 +72,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="{{ route('values.index') }}">
+              <span data-feather="bar-chart-2"></span>
+              Imagen empresarial
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="bar-chart-2"></span>
               Reports

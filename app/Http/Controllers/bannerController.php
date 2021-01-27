@@ -89,7 +89,7 @@ class bannerController extends Controller
     {
          return view('admin.banner.edit',[
             'banners' => Banners::findOrFail( $banner->id)
-        ])->with('status', 'usuario editado con exito');
+        ]);
     }
 
     /**
