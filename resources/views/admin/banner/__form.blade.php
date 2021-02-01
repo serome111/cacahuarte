@@ -35,5 +35,4 @@
 	<div class="mb-3 mb-3 col-md-12 d-md-flex justify-content-md-end">
 		<button  class="btn btn-primary" type="submit">{{ $btntxt }}</button>
 	</div>
-
 </div>

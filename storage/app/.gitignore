@@ -1,4 +1,4 @@
-#*
-#!public/
-#!.gitignore
-#.DS_Store
+*
+!public/
+!.gitignore
+.DS_Store

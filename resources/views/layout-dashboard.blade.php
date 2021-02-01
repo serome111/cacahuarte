@@ -45,7 +45,7 @@
 <div class="container-fluid">
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-      <div class="position-sticky pt-3">
+      <div class="position-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="{{route('index') }}">
@@ -54,43 +54,60 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('banner.index') }}">
-              <span data-feather="image"></span>
-              Banner principal
-            </a>
+              <a class="nav-link" data-bs-toggle="collapse" href="#MenuPage" role="button" aria-expanded="false" aria-controls="MenuPage">
+                <span data-feather="settings"></span>Pagina Principal
+              </a>
+            <div class="collapse px-3" id="MenuPage">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('banner.index') }}">
+                  <span data-feather="image"></span>
+                    Banner principal
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('why-about-us.index') }}">
+                    <span data-feather="edit"></span>
+                    ¿por qué nosotros?
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('about_us.index') }}">
+                    <span data-feather="users"></span>
+                    Acerca de nosotros
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('values.index') }}">
+                    <span data-feather="bar-chart-2"></span>
+                    Imagen empresarial
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('why-about-us.index') }}">
-              <span data-feather="edit"></span>
-              ¿por qué nosotros?
+            <a class="nav-link" data-bs-toggle="collapse" href="#Menuproduc" role="button" aria-expanded="false" aria-controls="Menuproduc">
+              <span data-feather="shopping-cart"></span>Productos
             </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('about_us.index') }}">
-              <span data-feather="users"></span>
-              Acerca de nosotros
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('values.index') }}">
-              <span data-feather="bar-chart-2"></span>
-              Imagen empresarial
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="bar-chart-2"></span>
-              Reports
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <span data-feather="layers"></span>
-              Integrations
-            </a>
+            <div class="collapse px-3" id="Menuproduc">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('banner.index') }}">
+                  <span data-feather="shopping-bag"></span>
+                    Inventario
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('categories.index') }}">
+                  <span data-feather="grid"></span>
+                    Categorias
+                  </a>
+                </li>
+              </ul>
+            </div>
           </li>
         </ul>
-
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Saved reports</span>
           <a class="link-secondary" href="#" aria-label="Add a new report">
