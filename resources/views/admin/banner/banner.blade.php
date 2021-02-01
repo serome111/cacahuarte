@@ -60,7 +60,6 @@
 	</div>
 </div>
 
-
 	@endif
 		@empty
 			<li>No hay ningun banner</li>

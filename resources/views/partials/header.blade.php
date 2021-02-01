@@ -27,7 +27,7 @@
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li class="active"><a href="index.html">Inicio</a></li>
+          <li class="active"><a href="/">Inicio</a></li>
           <li><a href="#about">Nosotros</a></li>
           <!-- <li><a href="#services">Productos</a></li> -->
           <li><a href="#portfolio">Portfolio</a></li>

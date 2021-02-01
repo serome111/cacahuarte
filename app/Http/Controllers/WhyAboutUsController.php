@@ -22,7 +22,7 @@ class WhyAboutUsController extends Controller
      */
     public function index()
     {
-       
+
         $cardCompleta = WhyAboutUs::select('why_about_us.*','icons.icon_class')
                 ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
                 ->get();
@@ -37,7 +37,7 @@ class WhyAboutUsController extends Controller
      */
     public function create()
     {
-    	//
+        //
     }
 
     /**
@@ -59,7 +59,7 @@ class WhyAboutUsController extends Controller
      */
     public function show($id)
     {
-        
+
     }
 
     /**
@@ -76,7 +76,7 @@ class WhyAboutUsController extends Controller
                 ->where('why_about_us.id','=',$id)
                 ->get();
         return view('admin.why-about-us.edit',compact('tarjetas','iconos'));
-           
+
     }
 
     /**

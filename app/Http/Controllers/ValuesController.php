@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AboutUs;
-use App\Models\Banners;
+use App\Http\Requests\ValueReques;
 use App\Models\Values;
-use App\Models\WhyAboutUs;
-use App\Models\Clients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
-class IndexController extends Controller
+class ValuesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,21 +16,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('index',[
-            'banners' => Banners::where('state', 1)->get(),
-            'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
-                ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
-                ->get(),
-            'clientes' => Clients::where('estado', 1)->get(),
-            'about_us' => AboutUs::select('about_us.*','ic.icon_class AS icon1','ic2.icon_class AS icon2','ic3.icon_class AS icon3')
-            ->join('icons as ic',  'about_us.favicon1', '=', 'ic.id')
-            ->join('icons as ic2', 'about_us.favicon2', '=', 'ic2.id')
-            ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
-            ->get(),
-            'values' => Values::where('state', 1)->get()
+        return view('admin.values.values',[
+            'values' => Values::latest('updated_at')->get()
         ]);
-
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -65,15 +53,17 @@ class IndexController extends Controller
         //
     }
 
-    /*
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-
-    public function edit($id)
+     */
+    public function edit(Values $value)
     {
-        //
+        return view('admin.values.edit',[
+            'values' => Values::findOrFail( $value->id)
+        ]);
     }
 
     /**
@@ -83,9 +73,26 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ValueReques $request, Values $value)
     {
-        //
+        if (empty($request->picture)) {
+            $value->update($request->validated());
+            return redirect()->route('values.index')->with('status', 'banner actualizado con exito');
+        }else{
+            $remplazar = array("storage","Storage");
+            $link = str_replace($remplazar, "public", $value->picture);
+            $value->picture = $link;
+            if(Storage::delete($value->picture)){
+                $link = $request->file('picture')->store('public/values');
+                $link = Storage::url($link);
+                $data = $request->all();
+                $data['picture'] = $link;
+                $value->update($data);
+                return redirect()->route('values.index')->with('status', 'banner actualizado con exito');
+            }else{
+                return redirect()->route('values.index')->with('status', 'error al eliminar el banner!');
+            }
+        }
     }
 
     /**

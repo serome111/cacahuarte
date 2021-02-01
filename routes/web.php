@@ -1,9 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\bannerController;
+use App\Http\Controllers\AboutUsController;
+use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\bannerController;
+use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,8 +25,14 @@ Route::get('/base', function () {
     return view('admin/dashboard');
 })->name('dashboard');
 
+
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner', bannerController::class);
+Route::resource('about_us',AboutUsController::class);
+Route::resource('values',ValuesController::class);
+
+//productos
+Route::resource('categories',CategoriesController::class);
 
 //tarjetas why-about-us
 Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index', 'edit', 'update']]);

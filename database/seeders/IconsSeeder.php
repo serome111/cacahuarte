@@ -15,7 +15,6 @@ class IconsSeeder extends Seeder
     public function run()
     {	
         Icon::truncate();
-
     	$icons = array(
 		    ['icon_name' => 'ADN', 'icon_class' => 'icofont-dna', 'icon_hex_code' => 'ec17'],
 		    ['icon_name' => 'Heart', 'icon_class' => 'icofont-pulse', 'icon_hex_code' => 'ec31'],
@@ -25,6 +24,6 @@ class IconsSeeder extends Seeder
 		for ($i=0;$i<$registros;$i++) {
 			DB::table('icons')->insert($icons[$i]);
 		}
-        
+
     }
 }

@@ -24,5 +24,4 @@
     </section>
   @endforeach
 @endif
-
  <!-- End Hero -->

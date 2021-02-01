@@ -7,7 +7,6 @@
 
 @section('content')
 
-
 @include('partials/banner')
 @include('partials/why-about-us')
 @include('partials/about-us')
