@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\bannerController;
 use App\Http\Controllers\WhyAboutUsController;
+use App\Http\Controllers\ClientsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use App\Http\Controllers\WhyAboutUsController;
 |
 */
 
-Route::resource('/','App\Http\Controllers\IndexController');
+Route::resource('/','App\Http\Controllers\IndexController', ['only' => ['index']]);
 Route::get('/base', function () {
     return view('admin/dashboard');
 })->name('dashboard');
@@ -24,4 +25,7 @@ Route::get('/base', function () {
 Route::resource('banner', bannerController::class);
 
 //tarjetas why-about-us
-Route::resource('why-about-us', WhyAboutUsController::class);
+Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index', 'edit', 'update']]);
+
+//clients
+Route::resource('clients', ClientsController::class);

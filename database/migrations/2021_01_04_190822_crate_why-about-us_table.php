@@ -30,6 +30,6 @@ class CrateWhyAboutUsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('why-about-us');
+        Schema::dropIfExists('why_about_us');
     }
 }

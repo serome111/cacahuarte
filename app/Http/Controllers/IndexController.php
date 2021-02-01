@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Banners;
 use App\Models\WhyAboutUs;
+use App\Models\Clients;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -19,7 +20,8 @@ class IndexController extends Controller
             'banners' => Banners::where('state', 1)->get(),
             'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
                 ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
-                ->get()
+                ->get(),
+            'clientes' => Clients::where('estado', 1)->get()
         ]);
     }
 

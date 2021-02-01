@@ -36,6 +36,6 @@ class CreateWhyUsesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('why-uses');
+        Schema::dropIfExists('why_us');
     }
 }

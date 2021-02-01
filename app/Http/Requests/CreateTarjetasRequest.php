@@ -24,7 +24,7 @@ class CreateTarjetasRequest extends FormRequest
     public function rules()
     {
         return [
-            'icon_id' => 'required', 
+            
             'title' => 'required', 
             'description' => 'required',
         ];
@@ -33,7 +33,7 @@ class CreateTarjetasRequest extends FormRequest
     public function messages()
     {
         return [
-            'icon_id.required' => 'Debes selccionar un ícono',
+            
             'title.required'  => 'El título es requerido',
             'description.required'  => 'La descripción es requerida'
         ];

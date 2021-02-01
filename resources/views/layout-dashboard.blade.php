@@ -62,13 +62,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('why-about-us.index') }}">
               <span data-feather="edit"></span>
-              ¿por qué nosotros?
+              ¿Por qué nosotros?
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{{ route('clients.index') }}">
               <span data-feather="users"></span>
-              Customers
+              Nuestros Clientes
             </a>
           </li>
           <li class="nav-item">
@@ -119,4 +119,5 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
   <script type="text/javascript" src="{{ mix('js/dashboard.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/clients.js') }}"></script>
 </html>
