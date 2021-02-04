@@ -4,7 +4,6 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>@yield('title','titulo')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
@@ -16,14 +15,13 @@
   <!-- Vendor CSS Files -->
   <link rel="stylesheet" type="text/css" href="{{ mix('css/css/bootstrap2.min.css')}}">
   <link rel="stylesheet" type="text/css" href="{{ mix('css/dashboard.css')}}">
-
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" type="text/css" href="{{ mix('css/bootstrap.min.css')}}">
   <link href="{{ mix('css/icofont.min.css')}}" rel="stylesheet">
   <link href="{{ mix('css/boxicons.min.css')}}" rel="stylesheet">
   <link href="{{ mix('css/venobox.css')}}" rel="stylesheet">
   <link href="{{ mix('css/owl.carousel.min.css')}}" rel="stylesheet">
   <link href="{{ mix('css/aos.css')}}" rel="stylesheet">
-
   <!-- Template Main CSS File -->
   <link href="{{ mix('css/style.css')}}" rel="stylesheet">
 </head>
@@ -34,7 +32,6 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" href="#">salir</a>
@@ -99,7 +96,7 @@
             <div class="collapse px-3" id="Menuproduc">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('banner.index') }}">
+                  <a class="nav-link" href="{{ route('products.index') }}">
                   <span data-feather="shopping-bag"></span>
                     Inventario
                   </a>
