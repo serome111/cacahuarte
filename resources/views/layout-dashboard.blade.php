@@ -89,6 +89,12 @@
                     Imagen empresarial
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('team.index') }}">
+                    <span data-feather="users"></span>
+                    Equipo de trabajo
+                  </a>
+                </li>
               </ul>
             </div>
           </li>
@@ -149,4 +155,5 @@
   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
   <script type="text/javascript" src="{{ mix('js/dashboard.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/clients.js') }}"></script>
+  <script type="text/javascript" src="{{ asset('js/team.js') }}"></script>
 </html>
