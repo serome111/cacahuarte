@@ -8,10 +8,10 @@
 <main class="col-md-12 ms-sm-auto col-lg-10 px-md-4 p-4">
 	<h2 class="text-center display-4">Tarjetas</h2>
 	<p class="text-center text-muted h3">Aquí puede editar el contenido de las tarjetas informativas</p>
-	<div class="row ">
+	<div class="row mx-5">
 		@forelse($cardCompleta as $tarjeta)
 			@if($tarjeta->id != null)
-				<div class="col-lg-4">
+				<div class="col-lg-6">
 				    <div class="card text-center border-dark my-3" style="width: 18rem;">
 					  <div class="card-header">
 					  	<i class="{{ $tarjeta->icon_class }} icofont-3x mt-1"></i>

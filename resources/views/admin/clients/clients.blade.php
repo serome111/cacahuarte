@@ -32,7 +32,7 @@
 			    <li><a class="dropdown-item" href="{{ route('clients.edit',$cliente->id) }}">Editar</a></li>
 			    <li>
 			    	
-			    	<a  type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+			    	<a  type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal1">
 			    		Eliminar
 			    	</a>
 				</li>
@@ -42,6 +42,28 @@
 
 	  	</div>
 	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Eliminando...</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>¿Realmente desea elimiar este cliente? Una vez hecho no se podrá recuperar.</p>
+      </div>
+      <div class="modal-footer">
+        <form  class="dropdown-item" id="banner" method="POST" action="{{ route('clients.destroy', $cliente->id) }}">	
+        	@csrf @method('DELETE')
+	        <a rel="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
+
+        	<button type="submit" class="btn btn-primary">Eliminar</button>
+		</form>
+      </div>
+    </div>
+  </div>
 </div>
 	@else
 	<div class="col-sm-6 mb-5 mx-auto">
@@ -71,8 +93,7 @@
 	  	</div>
 	</div>
 </div>
-	@endif
-	<!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -94,6 +115,7 @@
     </div>
   </div>
 </div>
+	@endif
 		@empty
 			<li>No hay ningún cliente</li>
 		@endforelse

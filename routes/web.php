@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
 use App\Http\Controllers\bannerController;
+use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,17 +29,21 @@ Route::get('/base', function () {
 
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
-Route::resource('banner', bannerController::class);
-Route::resource('about_us',AboutUsController::class);
-Route::resource('values',ValuesController::class);
+Route::resource('banner', bannerController::class,['except' => ['show']]);
+Route::resource('about_us',AboutUsController::class,['except' => ['show']]);
+Route::resource('values',ValuesController::class,['except' => ['show']]);
 
 //Categorias
 Route::resource('categories',CategoriesController::class);
 //Productos
 Route::resource('products',ProductsController::class);
 Route::post('/products/filter','App\Http\Controllers\ProductsController@filter')->name('filter');
+
 //tarjetas why-about-us
 Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index', 'edit', 'update']]);
 
 //clients
-Route::resource('clients', ClientsController::class);
+Route::resource('clients', ClientsController::class)->except(['show']);
+
+// Team
+Route::resource('team', TeamController::class)->except(['show']);
