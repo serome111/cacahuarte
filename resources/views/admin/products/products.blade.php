@@ -18,7 +18,7 @@
 		</div>
 		<div class="col-sm-3">
 		  	<label for="catgriafilter" class="form-label">Filtrar por categoria</label>
-		  	<select class="form-select" name="catgriafilter" id="catgriafilter" aria-label="Default select example" onchange="filter(0);">
+		  	<select class="form-select" name="catgriafilter" id="catgriafilter" aria-label="Default select example" onchange="filter(2);">
 			  <option value="" selected>Categoria</option>
 			  @if($categories->count() === 0)
 			  <option value="">No existen categorias creadas</option>
@@ -73,9 +73,10 @@
 		}else if(value == 1){
 			state = document.getElementById("state").value;
 		}else{
-			let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+			// let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 			var datos = new FormData();
-			datos.append('code', value.value);
+			datos.append('code', value);
+			// console.log(datos)
 			fetch('{{ route('filter') }}',{
 				headers: {
        				'X-CSRF-TOKEN': window.CSRF_TOKEN// <--- aquí el token
@@ -94,6 +95,7 @@
 		}
 
 	}
+
 
 </script>
 @endsection()
