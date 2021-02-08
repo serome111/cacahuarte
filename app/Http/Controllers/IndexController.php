@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\AboutUs;
 use App\Models\Banners;
+use App\Models\Clients;
+use App\Models\Products;
+use App\Models\Team;
 use App\Models\Values;
 use App\Models\WhyAboutUs;
-use App\Models\Clients;
-use App\Models\Team;
 use Illuminate\Http\Request;
 
 class IndexController extends Controller
@@ -31,7 +32,8 @@ class IndexController extends Controller
             ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
             ->get(),
             'values' => Values::where('state', 1)->get(),
-            'team' => Team::where('estado', 1)->get()
+            'team' => Team::where('estado', 1)->get(),
+            'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get()
         ]);
 
     }

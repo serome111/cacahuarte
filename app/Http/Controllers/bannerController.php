@@ -134,7 +134,6 @@ class bannerController extends Controller
             $banner->update($data);
             return redirect()->route('banner.index')->with('status', 'banner actualizado con exito');
         }
-
     }
 
     /**

@@ -2,9 +2,10 @@
 
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
-use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\bannerController;
 use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
@@ -32,9 +33,12 @@ Route::resource('banner', bannerController::class,['except' => ['show']]);
 Route::resource('about_us',AboutUsController::class,['except' => ['show']]);
 Route::resource('values',ValuesController::class,['except' => ['show']]);
 
-//productos
-Route::resource('categories',CategoriesController::class,['except' => ['show']]);
-
+//Categorias
+Route::resource('categories',CategoriesController::class);
+//Productos
+Route::resource('products',ProductsController::class);
+Route::post('/products/filter','App\Http\Controllers\ProductsController@filter')->name('filter');
+Route::get('/detalles/{product}','App\Http\Controllers\ProductsController@detail')->name('detail');
 //tarjetas why-about-us
 Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index', 'edit', 'update']]);
 
