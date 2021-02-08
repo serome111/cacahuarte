@@ -41,6 +41,9 @@
 			  <option value="">No existen categorias creadas</option>
 			@else
 				@foreach($categories as $categorie)
+					@if(old('categorie_id',$products->categorie_id) == $categorie->id)
+			  			<option value="{{$categorie->id}}" selected>{{$categorie->name}}</option>
+			  		@endif
 			  		<option value="{{$categorie->id}}">{{$categorie->name}}</option>
 			  	@endforeach
 		  	@endif
@@ -53,9 +56,18 @@
 	<div class="col-sm-3">
 		<label for="state" class="form-label">Estado del producto</label>
 		<select class="form-select @error('state') is-invalid @enderror"name="state" id="state">
-		  <option value="" selected>Seleccione el estado</option>
-		  <option value="1">Activo</option>
-		  <option value="0">inactivo</option>
+			<option value="" selected>Seleccione el estado</option>
+			@if(old('state',$products->state) === 1)
+				<option value="1" selected>Activo</option>
+				<option value="0">inactivo</option>
+			@elseif(old('state',$products->state) === 0)
+				<option value="0" selected>inactivo</option>
+				<option value="1">Activo</option>
+			@endif
+			@if(empty($products->state))
+				<option value="1">Activo</option>
+				<option value="0">inactivo</option>
+			@endif
 		</select>
 		@error('state')
 	  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
@@ -66,7 +78,7 @@
 		<label for="picture" class="form-label">
 	  		Subir imagen de producto
 		</label>
-	  	<input class="form-control @error('picture') is-invalid @enderror" type="file" picture="picture" name="picture" id="picture" value="{{ old('picture',$products->picture) }}" onchange="pictureProduct();" required>
+	  	<input class="form-control @error('picture') is-invalid @enderror" type="file" picture="picture" name="picture" id="picture" value="{{ old('picture',$products->picture) }}" onchange="pictureProduct();" {{$req = empty($products->picture) ? 'required' : ''}}>
 		@error('picture')
 			<span class="invalid-feedback" role="alert">
 		  		<strong>{{$message}}</strong>
@@ -84,8 +96,7 @@
 
 	<div class="col-sm-3">
 			<div class="card position-relative">
-			    <img src="../img/portfolio/caja.png"
-			    id="producImg" class="card-img-top" alt="producto">
+				<img src="{{ $action = empty($products->picture) ? '/img/portfolio/caja.png' : $products->picture }}" id="producImg" class="card-img-top" alt="producto">
 			</div>
 	</div>
 

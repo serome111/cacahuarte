@@ -19,8 +19,14 @@ class ProductsController extends Controller
     {
        return view('admin.products.products',[
             'categories' => Categories::select('id','name')->get(),
-            'products' => Products::select('id','name','code','stock','picture')->get()
+            'products' => Products::select('id','name','code','stock','picture','state')->get()
        ]);
+    }
+    public function detail($id)
+    {
+        return view('public.detailProduc',[
+            'product' =>  Products::findOrFail($id)
+        ]);
     }
 
     public function filter($request)
@@ -70,7 +76,11 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        return $id;
+        return view('admin.products.show',[
+            'categories' => Categories::select('id','name')->get(),
+            'product' =>  Products::findOrFail($id)
+
+       ]);
     }
 
     /**
@@ -81,7 +91,10 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.products.edit',[
+            'categories' => Categories::select('id','name')->get(),
+            'products' =>  Products::findOrFail($id)
+       ]);
     }
 
     /**
@@ -91,9 +104,26 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductReques $request,Products $product)
     {
-        //
+        if (empty($request->picture)) {
+            $product->update($request->validated());
+            return redirect()->route('products.index')->with('status', 'Producto actualizado con exito');
+        }else{
+            $remplazar = array("storage","Storage");
+            $link = str_replace($remplazar, "public", $product->picture);
+            $product->picture = $link;
+            if(Storage::delete($product->picture)){
+                $link = $request->file('picture')->store('public/products');
+                $link = Storage::url($link);
+                $data = $request->all();
+                $data['picture'] = $link;
+                $product->update($data);
+                return redirect()->route('products.index')->with('status', 'Producto actualizado con exito');
+            }else{
+                return redirect()->route('values.index')->with('status', 'error al actualizar imagen del producto');
+            }
+        }
     }
 
     /**
@@ -102,8 +132,16 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Products $product)
     {
-        //
+        $remplazar = array("storage","Storage");
+        $link = str_replace($remplazar, "public", $product->picture);
+        $product->picture = $link;
+        if(Storage::delete($product->picture)){
+            $product->delete();
+            return redirect()->route('products.index')->with('status', 'Producto Eliminado con exito');
+        }else{
+            return redirect()->route('banner.index')->with('status', 'Hubo un error al eliminar el Producto');
+        }
     }
 }

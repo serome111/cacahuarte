@@ -49,14 +49,17 @@
 		<div class="col">
 			<div class="card position-relative">
 				<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{{$product->stock}}<span class="visually-hidden">cantidad</span></span>
-				<a href="#">
-			     <img src="{{$product->picture}}" class="card-img-top" alt="{{$product->id}}">
+				<a href="{{ route('products.show',$product ) }}">
+			     <img src="{{$product->picture}}" class="card-img-top" alt="{{$product->id}}" height="140">
 			    </a>
 			  <div class="card-body text-center">
 			    <h5 class="card-title">{{$product->name}}</h5>
 			    <p class="card-text">Codigo: {{$product->code}}</p>
+			    </div>
+			    @if($product->state === 0)
+			    	<div class="position-absolute bottom-0 start-50 translate-middle-x badge rounded-pill bg-danger">Inactivo</div>
+			    @endif
 			  </div>
-			</div>
 		</div>
 	@endforeach
 </div>

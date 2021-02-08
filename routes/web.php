@@ -38,7 +38,7 @@ Route::resource('categories',CategoriesController::class);
 //Productos
 Route::resource('products',ProductsController::class);
 Route::post('/products/filter','App\Http\Controllers\ProductsController@filter')->name('filter');
-
+Route::get('/detalles/{product}','App\Http\Controllers\ProductsController@detail')->name('detail');
 //tarjetas why-about-us
 Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index', 'edit', 'update']]);
 
