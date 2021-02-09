@@ -22,8 +22,8 @@
                 </div>
               </div>
               <div class="member-info">
-                <h4>{{ $integrante->nombre ." ". $integrante->apellido}}</h4>
-                <span>{{ $integrante->cargo }}</span>
+                <h4>{{ $integrante->name ." ". $integrante->lastName}}</h4>
+                <span>{{ $integrante->position }}</span>
               </div>
             </div>
           </div>

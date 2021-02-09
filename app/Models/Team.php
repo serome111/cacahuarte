@@ -9,10 +9,10 @@ class Team extends Model
 {
     // use HasFactory;
     protected $fillable = [
-    						"nombre",
-    						"apellido",
-    						"cargo",
+    						"name",
+    						"lastName",
+    						"position",
     						"imagen",
-    						"estado"
+    						"state"
     					];
 }

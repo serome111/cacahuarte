@@ -32,7 +32,7 @@ class IndexController extends Controller
             ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
             ->get(),
             'values' => Values::where('state', 1)->get(),
-            'team' => Team::where('estado', 1)->get(),
+            'team' => Team::where('state', 1)->get(),
             'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get()
         ]);
 

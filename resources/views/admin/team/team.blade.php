@@ -14,7 +14,7 @@
 </div>
 <div class="row">
 @forelse($team as $miembro)
-	@if($miembro->estado == 1)
+	@if($miembro->state == 1)
 	<div class="col-sm-4 mx-auto">
 		<div class="card shadow mb-5 mx-auto">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -24,9 +24,9 @@
 				<img src="{{url('images/team/'.$miembro->imagen)}}" class="img-fluid mt-3" alt="Imagen del integrante" height="200" width="200">
 			</div>
 		 	<div class="card-body text-center">
-		 	  <h5 class="card-title">{{ $miembro->nombre }}</h5>
-		 	  <h5 class="card-title">{{ $miembro->apellido }}</h5>
-		 	  <h5 class="card-text">{{ $miembro->cargo }}</h5>
+		 	  <h5 class="card-title">{{ $miembro->name }}</h5>
+		 	  <h5 class="card-title">{{ $miembro->lastName }}</h5>
+		 	  <h5 class="card-text">{{ $miembro->position }}</h5>
 			  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 			    Accion
 			  </button>
@@ -76,9 +76,9 @@
 				<img src="{{url('images/team/'.$miembro->imagen)}}" class="img-fluid mt-3" alt="Imagen del integrante" height="200" width="200">
 			</div>
 		 	<div class="card-body text-center">
-		 	  <h5 class="card-title">{{ $miembro->nombre }}</h5>
-		 	  <h5 class="card-title">{{ $miembro->apellido }}</h5>
-		 	  <h5 class="card-text">{{ $miembro->cargo }}</h5>
+		 	  <h5 class="card-title">{{ $miembro->name }}</h5>
+		 	  <h5 class="card-title">{{ $miembro->lastName }}</h5>
+		 	  <h5 class="card-text">{{ $miembro->position }}</h5>
 			  <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 			    Accion
 			  </button>
