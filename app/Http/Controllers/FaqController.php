@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AboutUs;
-use App\Models\Banners;
-use App\Models\Clients;
+use App\Http\Requests\FaqReques;
 use App\Models\Faq;
-use App\Models\Products;
-use App\Models\Team;
-use App\Models\Values;
-use App\Models\WhyAboutUs;
 use Illuminate\Http\Request;
 
-class IndexController extends Controller
+class FaqController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,24 +15,11 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('index',[
-            'banners' => Banners::where('state', 1)->get(),
-            'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
-                ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
-                ->get(),
-            'clientes' => Clients::where('estado', 1)->get(),
-            'about_us' => AboutUs::select('about_us.*','ic.icon_class AS icon1','ic2.icon_class AS icon2','ic3.icon_class AS icon3')
-            ->join('icons as ic',  'about_us.favicon1', '=', 'ic.id')
-            ->join('icons as ic2', 'about_us.favicon2', '=', 'ic2.id')
-            ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
-            ->get(),
-            'values' => Values::where('state', 1)->get(),
-            'team' => Team::where('estado', 1)->get(),
-            'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get(),
+        return view('admin.faq.faq',[
             'faqs' => Faq::latest('updated_at')->get()
         ]);
-
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -46,7 +27,9 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.faq.create',[
+            'faq' => new Faq
+        ]);
     }
 
     /**
@@ -55,9 +38,13 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FaqReques $request)
     {
-        //
+        $data = $request;
+        $data['link'] = 0;
+        $data['textLink'] = 0;
+        Faq::create($data->validated());
+        return redirect()->route('faq.index')->with('status', 'Pregunta creada con exito');
     }
 
     /**
@@ -71,12 +58,12 @@ class IndexController extends Controller
         //
     }
 
-    /*
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
-
+     */
     public function edit($id)
     {
         //
@@ -102,6 +89,7 @@ class IndexController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Faq::where('id', $id)->delete();
+        return redirect()->route('faq.index')->with('status', 'Pregunta Eliminada con exito');
     }
 }

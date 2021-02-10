@@ -3,11 +3,12 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
 use App\Http\Controllers\bannerController;
-use App\Http\Controllers\TeamController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -44,6 +45,7 @@ Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index',
 
 //clients
 Route::resource('clients', ClientsController::class)->except(['show']);
-
+//F.A.Q
+Route::resource('faq', FaqController::class)->except(['show']);
 // Team
 Route::resource('team', TeamController::class)->except(['show']);

@@ -3,7 +3,7 @@
   <div class="container">
 
     <div class="section-title">
-      <h2 data-aos="fade-up">Equipo de mujeres</h2>
+      <h2 data-aos="fade-up">Equipo de trabajo</h2>
       <!-- <p data-aos="fade-up">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
     </div>
 

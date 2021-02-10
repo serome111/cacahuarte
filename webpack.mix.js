@@ -21,10 +21,9 @@ mix.postCss('resources/css/app.css', 'public/css', [
     .postCss('resources/vendor/venobox/venobox.css', 'public/css')
     .postCss('resources/vendor/owl.carousel/assets/owl.carousel.min.css', 'public/css')
     .postCss('resources/vendor/aos/aos.css', 'public/css')
-    .postCss('resources/css/style.css', 'public/css')
+    .postCss('resources/css/style.css','public/css')
     .postCss('resources/css/dashboard.css', 'public/css')
     .postCss('resources/css/css/bootstrap.min.css', 'public/css/css/bootstrap2.min.css');
-
 
 mix.scripts([
     'resources/vendor/jquery/jquery.min.js',

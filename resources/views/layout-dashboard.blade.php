@@ -93,6 +93,12 @@
                     Equipo de trabajo
                   </a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('faq.index') }}">
+                    <span data-feather="help-circle"></span>
+                    Preguntas Frecuentes
+                  </a>
+                </li>
               </ul>
             </div>
           </li>
