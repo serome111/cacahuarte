@@ -24,10 +24,10 @@ class TeamRequest extends FormRequest
     public function rules()
     {
         return [
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'cargo' => 'required',
-            'estado' => 'required',
+            'name' => 'required',
+            'lastName' => 'required',
+            'position' => 'required',
+            'state' => 'required',
             'imagen' => 'mimes:jpg,jpeg,png'
         ];
     }
@@ -37,10 +37,10 @@ class TeamRequest extends FormRequest
     {
         return [
 
-            'nombre.required' => 'El nombre del integrante es requerido',
-            'nombre.required' => 'El nombre del integrante es requerido',
-            'cargo.required' => 'El cargo del integrante es requerido',
-            'estado.required' => 'El estado del integrante es requerido',
+            'name.required' => 'El nombre del integrante es requerido',
+            'lastName.required' => 'El apellido del integrante es requerido',
+            'position.required' => 'El cargo del integrante es requerido',
+            'state.required' => 'El estado del integrante es requerido',
             'imagen.mimes' => 'debes subir una foto en formato jpg, jpeg o png'
         ];
     }

@@ -11,37 +11,37 @@
 			  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
 			  @enderror
 		      <label for="formText" class="form-label">Nombre</label>
-		      <input type="text" class="form-control" name="nombre" value="{{ old('nombre',$team->nombre) }}" required>
-		      @error('nombre')
+		      <input type="text" class="form-control" name="name" value="{{ old('name',$team->name) }}" required>
+		      @error('name')
 			  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
 			  @enderror
 		      <label for="formtext" class="form-label">Apellido</label>
-		      <input type="text" class="form-control" name="apellido" value="{{ old('apellido',$team->apellido) }}" required>
-		      @error('apellido')
+		      <input type="text" class="form-control" name="lastName" value="{{ old('lastName',$team->lastName) }}" required>
+		      @error('lastName')
 			  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
 			  @enderror
 		      <label for="formtext" class="form-label">Cargo</label>
-		      <input type="text" class="form-control" name="cargo" value="{{ old('cargo',$team->cargo) }}" required>
-		      @error('cargo')
+		      <input type="text" class="form-control" name="position" value="{{ old('position',$team->position) }}" required>
+		      @error('position')
 			  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
 			  @enderror
-		      @if($team->estado == 1)
-			      <select name="estado" class="form-control mt-2" required>
+		      @if($team->state == 1)
+			      <select name="state" class="form-control mt-2" required>
 			      	<option value="1">Activo</option>
 			      	<option value="2">Inactivo</option>
 			      </select>
-		      @elseif($team->estado == 2)
-			      <select name="estado" class="form-control mt-2" required>
+		      @elseif($team->state == 2)
+			      <select name="state" class="form-control mt-2" required>
 			      	<option value="2">Inactivo</option>
 			      	<option value="1">Activo</option>
 			      </select>
 		      @else
-			      <select name="estado" class="form-control mt-2" required>
+			      <select name="state" class="form-control mt-2" required>
 			      	<option value="">Selecciona un estado</option>
 			      	<option value="1">Activo</option>
 			      	<option value="2">Inactivo</option>
 			      </select>
-			      @error('estado')
+			      @error('state')
 				  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
 				  @enderror
 		      @endif

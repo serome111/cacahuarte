@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", cargarDepartamentos());
-let dapartamentosRepetidos = [];
+// let dapartamentosRepetidos = [];
 // API
 async function obtenerDatosAPI() {
-	  const url = `https://tupale.co//milfs/api.php?id=819&tipo=simple`;
+	  const url = `https://raw.githubusercontent.com/marcovega/colombia-json/master/colombia.min.json`;
 
 	  // fetch a la api
 	  const urlObtenerDatos = await fetch(url);
@@ -18,29 +18,19 @@ async function obtenerDatosAPI() {
 
 // Departamentos
 function cargarDepartamentos(){
+	const select = document.querySelector('#departamento');
+
 	obtenerDatosAPI()
 		.then(datos => {
 			for( const [key, value] of Object.entries(datos.datos) ){
-				/* console.log(value.id); */
-				// se guardan los datos en el array como vienen 
-				dapartamentosRepetidos.push(value.Departamento)
+				// console.log(value); 
+				const opcion = document.createElement('option');
+				opcion.value = value.departamento;
+				opcion.appendChild(document.createTextNode(value.departamento))
+				// llenamos el select
+				select.appendChild(opcion);
 			}
-			// con new Set se quitan los valores repetidos en el array
-			let datosUnicos = [... new Set(dapartamentosRepetidos)]
-			/* console.log(datosUnicos) */
-			// se selecciona el select
-			const select = document.querySelector('#departamento');
-			datosUnicos.forEach(dato => {
-				if(dato != undefined){
-					// añadir el departamento opciones
-					const opcion = document.createElement('option');
-					opcion.value = dato;
-					opcion.appendChild(document.createTextNode(dato))
-					// llenamos el select
-					select.appendChild(opcion);
-				}
-			})
-		}) 
+		})
 }
 
 // Municipios		
@@ -51,7 +41,7 @@ function capital(){
 	/* console.log(departamentoSeleccionado) */
 	const select = document.querySelector('#ciudad');
 	// se selecciona el select
-	if(select.childNodes.length > 2){
+	if(select.childNodes.length > 0){
 		select.innerHTML = "";
 	}
 	
@@ -59,13 +49,17 @@ function capital(){
 		.then(datos => {
 			// para recorrer un objeto
 			for( const [key, value] of Object.entries(datos.datos)){
-				// añadir el municipio como opciones
-				const opcion = document.createElement('option');
-				if(value.Departamento == departamentoSeleccionado){
-					opcion.value = value.MUNICIPIO;
-					opcion.appendChild(document.createTextNode(value.MUNICIPIO))
+				// si el departamento se encuentra
+				if(value.departamento == departamentoSeleccionado){
+					// se recorre el array de cuidades
+					value.ciudades.forEach(dato => {
+					// añadir el municipio como opciones
+					const opcion = document.createElement('option');
+					opcion.value = dato;
+					opcion.appendChild(document.createTextNode(dato))
 					// llenamos el select
 					select.appendChild(opcion);
+					})	
 				}
 			}
 		})

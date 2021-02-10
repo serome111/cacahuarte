@@ -29,9 +29,9 @@ class ProductsController extends Controller
         ]);
     }
 
-    public function filter($request)
+    public function filter(Request $request)
     {
-        return $request;
+        return "hola fetch";
     }
     /**
      * Show the form for creating a new resource.

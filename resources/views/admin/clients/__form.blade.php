@@ -34,7 +34,7 @@
 	<div class="mb-3 mb-3 col-md-5">
 		<label for="state" class="form-label">Departamento</label>
 		<select class="form-select @error('departamento') is-invalid @enderror" name="departamento" id="departamento" onchange="capital();">
-			@if(empty($cliente))
+			@if(empty($cliente->id))
 		  		<option value="" selected>Seleccione el departamento</option>
 		  	@else
 		  		<option value="{{$cliente->departamento}}">{{ $cliente->departamento }}</option>
