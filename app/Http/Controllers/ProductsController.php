@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except('detail');
+    }
+
     public function index()
     {
        return view('admin.products.products',[

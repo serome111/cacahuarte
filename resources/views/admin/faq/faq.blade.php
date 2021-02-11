@@ -19,22 +19,22 @@
 				<div class="accordion" id="{{$faq->id}}">
 				  	<div class="accordion-item">
 				    	<h2 class="accordion-header" id="headingOne">
-				    	<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#x{{$faq->id}}" aria-expanded="true" aria-controls="collapseOne">
-				        {{$faq->question}}
-				      </button>
-				    </h2>
-				    <div id="x{{$faq->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#{{$faq->id}}">
-				      <div class="accordion-body">
-				       {{$faq->solution}}
-				      </div>
-				      <div class="position-relative">
-				      	<form class="dropdown-item" id="faq{{$faq->id}}" method="POST" action="{{ route('faq.destroy', $faq->id ) }}">
-							@csrf @method('DELETE')
-							<button class="btn btn-danger position-absolute bottom-0 end-0" form="faq{{$faq->id}}">Eliminar pregunta</button>
-					  	</form>
-				      </div>
-				    </div>
-				  </div>
+					    	<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#x{{$faq->id}}" aria-expanded="true" aria-controls="collapseOne">
+					        {{$faq->question}}
+					      	</button>
+				    	</h2>
+				    	<div id="x{{$faq->id}}" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#{{$faq->id}}">
+					      	<div class="accordion-body">
+					       		{{$faq->solution}}
+					      	</div>
+						    <div class="position-relative">
+						      	<form class="dropdown-item" id="faq{{$faq->id}}" method="POST" action="{{ route('faq.destroy', $faq->id ) }}">
+									@csrf @method('DELETE')
+									<button class="btn btn-danger position-absolute bottom-0 end-0" form="faq{{$faq->id}}">Eliminar pregunta</button>
+							  	</form>
+						    </div>
+				    	</div>
+					</div>
 				</div>
 
 			@else

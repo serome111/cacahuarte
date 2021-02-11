@@ -21,6 +21,5 @@
         @endfor
       </ul>
     </div>
-
   </div>
 </section><!-- End F.A.Q Section -->
