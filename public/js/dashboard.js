@@ -119,6 +119,17 @@
 
 /***/ }),
 
+/***/ "./resources/css/login.css":
+/*!*********************************!*\
+  !*** ./resources/css/login.css ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/css/style.css":
 /*!*********************************!*\
   !*** ./resources/css/style.css ***!
@@ -242,9 +253,9 @@
 /***/ }),
 
 /***/ 0:
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/dashboard.js ./resources/css/app.css ./resources/vendor/bootstrap/css/bootstrap.min.css ./resources/vendor/icofont/icofont.min.css ./resources/vendor/boxicons/css/boxicons.min.css ./resources/vendor/venobox/venobox.css ./resources/vendor/owl.carousel/assets/owl.carousel.min.css ./resources/vendor/aos/aos.css ./resources/css/style.css ./resources/css/dashboard.css ./resources/css/css/bootstrap.min.css ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/dashboard.js ./resources/css/app.css ./resources/vendor/bootstrap/css/bootstrap.min.css ./resources/vendor/icofont/icofont.min.css ./resources/vendor/boxicons/css/boxicons.min.css ./resources/vendor/venobox/venobox.css ./resources/vendor/owl.carousel/assets/owl.carousel.min.css ./resources/vendor/aos/aos.css ./resources/css/style.css ./resources/css/dashboard.css ./resources/css/login.css ./resources/css/css/bootstrap.min.css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -258,6 +269,7 @@ __webpack_require__(/*! /Users/sebastianroa/Documents/sites/cacahuarte/resources
 __webpack_require__(/*! /Users/sebastianroa/Documents/sites/cacahuarte/resources/vendor/aos/aos.css */"./resources/vendor/aos/aos.css");
 __webpack_require__(/*! /Users/sebastianroa/Documents/sites/cacahuarte/resources/css/style.css */"./resources/css/style.css");
 __webpack_require__(/*! /Users/sebastianroa/Documents/sites/cacahuarte/resources/css/dashboard.css */"./resources/css/dashboard.css");
+__webpack_require__(/*! /Users/sebastianroa/Documents/sites/cacahuarte/resources/css/login.css */"./resources/css/login.css");
 module.exports = __webpack_require__(/*! /Users/sebastianroa/Documents/sites/cacahuarte/resources/css/css/bootstrap.min.css */"./resources/css/css/bootstrap.min.css");
 
 
