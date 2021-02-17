@@ -28,6 +28,11 @@ Route::get('/base', function () {
     return view('admin/dashboard');
 })->name('dashboard')->middleware('auth');
 
+Route::get('/qr', function () {
+    return header('Location: '.'https://drive.google.com/file/d/1O5CQeHiII_opGDC4R1X_mWLKGOUJftYY/view?usp=sharing');
+});
+
+
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner', bannerController::class,['except' => ['show']])->middleware('auth');
