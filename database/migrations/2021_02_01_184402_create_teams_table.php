@@ -15,11 +15,11 @@ class CreateTeamsTable extends Migration
     {
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->string('cargo');
+            $table->string('name');
+            $table->string('lastName');
+            $table->string('position');
             $table->string('imagen');
-            $table->integer('estado');
+            $table->integer('state');
             $table->timestamps();
         });
     }
