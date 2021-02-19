@@ -21,23 +21,22 @@ class IndexController extends Controller
      */
     public function index()
     {
-        return view('welcome');
-        // return view('index',[
-        //     'banners' => Banners::where('state', 1)->get(),
-        //     'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
-        //         ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
-        //         ->get(),
-        //     'clientes' => Clients::where('estado', 1)->get(),
-        //     'about_us' => AboutUs::select('about_us.*','ic.icon_class AS icon1','ic2.icon_class AS icon2','ic3.icon_class AS icon3')
-        //     ->join('icons as ic',  'about_us.favicon1', '=', 'ic.id')
-        //     ->join('icons as ic2', 'about_us.favicon2', '=', 'ic2.id')
-        //     ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
-        //     ->get(),
-        //     'values' => Values::where('state', 1)->get(),
-        //     'team' => Team::where('estado', 1)->get(),
-        //     'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get(),
-        //     'faqs' => Faq::latest('updated_at')->get()
-        // ]);
+        return view('index',[
+            'banners' => Banners::where('state', 1)->get(),
+            'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
+                ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
+                ->get(),
+            'clientes' => Clients::where('estado', 1)->get(),
+            'about_us' => AboutUs::select('about_us.*','ic.icon_class AS icon1','ic2.icon_class AS icon2','ic3.icon_class AS icon3')
+            ->join('icons as ic',  'about_us.favicon1', '=', 'ic.id')
+            ->join('icons as ic2', 'about_us.favicon2', '=', 'ic2.id')
+            ->join('icons as ic3', 'about_us.favicon3', '=', 'ic3.id')
+            ->get(),
+            'values' => Values::where('state', 1)->get(),
+            'team' => Team::where('estado', 1)->get(),
+            'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get(),
+            'faqs' => Faq::latest('updated_at')->get()
+        ]);
 
     }
     /**
