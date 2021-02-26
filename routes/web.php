@@ -55,6 +55,6 @@ Route::resource('faq', FaqController::class)->except(['show'])->middleware('auth
 // Team
 Route::resource('team', TeamController::class)->except(['show'])->middleware('auth');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 

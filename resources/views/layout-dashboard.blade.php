@@ -49,7 +49,7 @@
       <div class="position-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{route('index') }}">
+            <a class=" {{ request()->routeIs('/') ? 'active' : 'nav-link'}} " aria-current="page" href="{{route('index') }}">
               <span data-feather="home"></span>
               Ir al Sitio principal
             </a>
@@ -61,43 +61,43 @@
             <div class="collapse px-3" id="MenuPage">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('banner.index') }}">
+                  <a class=" {{ request()->routeIs('banner.index') ? 'nav-link active' : 'nav-link' }} " href="{{ route('banner.index') }}">
                   <span data-feather="image"></span>
                     Banner principal
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('why-about-us.index') }}">
+                  <a class="{{ request()->routeIs('why-about-us.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('why-about-us.index') }}">
                     <span data-feather="edit"></span>
                     ¿por qué nosotros?
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('clients.index') }}">
+                  <a class="{{ request()->routeIs('clients.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('clients.index') }}">
                     <span data-feather="users"></span>
                     Nuestros Clientes
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('about_us.index') }}">
+                  <a class="{{ request()->routeIs('about_us.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('about_us.index') }}">
                     <span data-feather="users"></span>
                     Acerca de nosotros
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('values.index') }}">
+                  <a class="{{ request()->routeIs('values.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('values.index') }}">
                     <span data-feather="bar-chart-2"></span>
                     Imagen empresarial
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('team.index') }}">
+                  <a class="{{ request()->routeIs('team.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('team.index') }}">
                     <span data-feather="users"></span>
                     Equipo de trabajo
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('faq.index') }}">
+                  <a class="{{ request()->routeIs('faq.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('faq.index') }}">
                     <span data-feather="help-circle"></span>
                     Preguntas Frecuentes
                   </a>
@@ -112,13 +112,13 @@
             <div class="collapse px-3" id="Menuproduc">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('products.index') }}">
+                  <a class="{{ request()->routeIs('products.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('products.index') }}">
                   <span data-feather="shopping-bag"></span>
                     Inventario
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="{{ route('categories.index') }}">
+                  <a class="{{ request()->routeIs('categories.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('categories.index') }}">
                   <span data-feather="grid"></span>
                     Categorias
                   </a>
