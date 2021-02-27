@@ -136,6 +136,9 @@
 
   function php_email_form_submit(this_form, action, data) {
     $.ajax({
+	  headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	 }, 
       type: "POST",
       url: action,
       data: data,

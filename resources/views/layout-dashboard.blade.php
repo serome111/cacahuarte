@@ -69,7 +69,7 @@
                 <li class="nav-item">
                   <a class="{{ request()->routeIs('why-about-us.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('why-about-us.index') }}">
                     <span data-feather="edit"></span>
-                    ¿por qué nosotros?
+                    ¿Por qué nosotros?
                   </a>
                 </li>
                 <li class="nav-item">
@@ -100,6 +100,12 @@
                   <a class="{{ request()->routeIs('faq.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('faq.index') }}">
                     <span data-feather="help-circle"></span>
                     Preguntas Frecuentes
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="{{ request()->routeIs('contact_us.index') ? 'nav-link active' : 'nav-link' }}" href="{{ route('contact_us.index') }}">
+                    <span data-feather="edit"></span>
+                    Contáctanos
                   </a>
                 </li>
               </ul>

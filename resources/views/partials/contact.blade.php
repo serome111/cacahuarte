@@ -3,8 +3,8 @@
   <div class="container">
 
     <div class="section-title">
-      <h2 data-aos="fade-up">Contactanos</h2>
-      <p data-aos="fade-up">Aqui podras dejarnos un mensaje, duda segerencia o el mensaje que nos quieras enlistar.</p>
+      <h2 data-aos="fade-up">Contáctanos</h2>
+      <p data-aos="fade-up">Aquí podras dejarnos un mensaje, inquietud, sugerencia o el mensaje que nos quieras enlistar.</p>
     </div>
 
     <div class="row justify-content-center">
@@ -12,7 +12,7 @@
       <div class="col-xl-3 col-lg-4 mt-4" data-aos="fade-up">
         <div class="info-box">
           <i class="bx bx-map"></i>
-          <h3>Our Address</h3>
+          <h3>Nuestra dirección</h3>
           <p>A108 Adam Street, New York, NY 535022</p>
         </div>
       </div>
@@ -20,14 +20,14 @@
       <div class="col-xl-3 col-lg-4 mt-4" data-aos="fade-up" data-aos-delay="100">
         <div class="info-box">
           <i class="bx bx-envelope"></i>
-          <h3>Email Us</h3>
+          <h3>Escríbenos</h3>
           <p>info@example.com<br>contact@example.com</p>
         </div>
       </div>
       <div class="col-xl-3 col-lg-4 mt-4" data-aos="fade-up" data-aos-delay="200">
         <div class="info-box">
           <i class="bx bx-phone-call"></i>
-          <h3>Call Us</h3>
+          <h3>Llámanos</h3>
           <p>+1 5589 55488 55<br>+1 6678 254445 41</p>
         </div>
       </div>
@@ -35,31 +35,31 @@
 
     <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="300">
       <div class="col-xl-9 col-lg-12 mt-4">
-        <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+        <form action="{{ route('contact_us.index') }}" method="POST" role="form" class="php-email-form">
           <div class="row">
             <div class="col-md-6 form-group">
-              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+              <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" data-rule="minlen:4" data-msg="El nombre es requerido con mínimo 4 letras" />
               <div class="validate"></div>
             </div>
             <div class="col-md-6 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+              <input type="email" class="form-control" name="email" id="email" placeholder="´Tu Email" data-rule="email" data-msg="Ingresa un email válido" />
               <div class="validate"></div>
             </div>
           </div>
           <div class="form-group mt-3">
-            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+            <input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" data-rule="minlen:4" data-msg="El asunto es requerido con mínimo 4 letras" />
             <div class="validate"></div>
           </div>
           <div class="form-group mt-3">
-            <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+            <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Por favor escribe algo para nosotros" placeholder="Mensaje"></textarea>
             <div class="validate"></div>
           </div>
           <div class="mb-3">
             <div class="loading">Loading</div>
             <div class="error-message"></div>
-            <div class="sent-message">Your message has been sent. Thank you!</div>
+            <div class="sent-message">Tu mensaje ha sido enviado con éxito. ¡Gracias por escribirnos!</div>
           </div>
-          <div class="text-center"><button type="submit">Send Message</button></div>
+          <div class="text-center"><button type="submit">Enviar Mensaje</button></div>
         </form>
       </div>
 

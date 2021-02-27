@@ -8,7 +8,8 @@
   <title>@yield('title','titulo')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
-
+<!-- token  -->
+<meta name="csrf-token" content="{{ csrf_token() }}" />
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
