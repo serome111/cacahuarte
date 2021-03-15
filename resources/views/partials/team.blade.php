@@ -8,7 +8,7 @@
     </div>
 
     <div class="row">
-      @if(!empty($team))
+      @if($team->isNotEmpty())
         @foreach($team as $integrante)
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
             <div class="member">

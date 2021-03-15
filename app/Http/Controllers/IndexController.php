@@ -39,7 +39,6 @@ class IndexController extends Controller
             'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get(),
             'faqs' => Faq::latest('updated_at')->get()
         ]);
-
     }
     /**
      * Show the form for creating a new resource.

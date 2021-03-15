@@ -9,6 +9,7 @@ use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
 use App\Http\Controllers\bannerController;
+use App\Http\Controllers\ContactUsController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -74,7 +75,9 @@ Route::resource('clients', ClientsController::class)->except(['show'])->middlewa
 Route::resource('faq', FaqController::class)->except(['show'])->middleware('auth');
 // Team
 Route::resource('team', TeamController::class)->except(['show'])->middleware('auth');
+// Contact us
+Route::resource('contact_us', ContactUsController::class)->only(['index','store','destroy'])->middleware('auth');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 

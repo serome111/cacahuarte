@@ -1,0 +1,90 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\ContactUs;
+use Illuminate\Http\Request;
+
+class ContactUsController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return view('admin.contact_us.contact_us',[
+            'contact' => ContactUs::latest('updated_at')->get()
+        ]);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        ContactUs::create($request->all());
+        return "OK";
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\ContactUs  $contactUs
+     * @return \Illuminate\Http\Response
+     */
+    public function show(ContactUs $contactUs)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\ContactUs  $contactUs
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(ContactUs $contactUs)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\ContactUs  $contactUs
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, ContactUs $contactUs)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\ContactUs  $contactUs
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        $mensaje = ContactUs::findOrFail($id);
+        $mensaje->delete();
+        return redirect("contact_us")->with('status','Mensaje eliminado con éxito');
+    }
+}
