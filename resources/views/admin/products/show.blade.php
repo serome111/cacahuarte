@@ -34,6 +34,5 @@ h4 {display: inline;}
 	</div>
 
 
-
 </main>
 @endsection()

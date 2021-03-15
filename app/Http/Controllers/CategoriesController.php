@@ -38,7 +38,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoriesReques $request)
     {
-         Categories::create($request->validated());
+        Categories::create($request->validated());
         return redirect()->route('categories.index')->with('status', 'categoría creada con exito');
     }
 

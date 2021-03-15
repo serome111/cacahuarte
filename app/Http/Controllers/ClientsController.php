@@ -32,7 +32,7 @@ class ClientsController extends Controller
      */
     public function create()
     {
-    	
+
         return view('admin.clients.create',[
             'cliente' => new Clients
         ]);
@@ -46,18 +46,17 @@ class ClientsController extends Controller
      */
     public function store(ClientRequest $request)
     {
-        
+
         $entrada=$request->all();
 	   if($archivo=$request->file('imagen')){
-		   
+
 		   $nombre=$archivo->getClientOriginalName();
-		   
+
 		   $archivo->move('images/clients', $nombre);
-		   
+
 		   $entrada['imagen']=$nombre;
-		   
+
 	   }
-	   
 	   try {
 	   		Clients::create($entrada);
 	   		//redireccionamos al index
@@ -66,7 +65,6 @@ class ClientsController extends Controller
 	   		return redirect("clients")->with('status','Error al crear el cliente');
 	        // return false;
 	   }
-	  
     }
 
     /**
@@ -108,21 +106,18 @@ class ClientsController extends Controller
     	$cliente = Clients::findOrFail($id);
 		//usamos fill para llenar los campos del modelo pero aún no se guardan porque hay operaciones por realizar
     	$imagen = $cliente->fill($request->all());
-    	
+
     	if($archivo=$request->file('imagen')){
-			
-			//verificamos si hay una imagen 
+
+			//verificamos si hay una imagen
 			if($request->hasFile('imagen')){
-				//borramos la imagen de la carpeta public	
+				//borramos la imagen de la carpeta public
 				File::delete(public_path('images/clients/'.Clients::findOrFail($id)->imagen));
-				
 			}
-		   
+
 		   $nombre=$archivo->getClientOriginalName();
-		   
 		   $archivo->move('images/clients', $nombre);
-		   
-		   $imagen['imagen']=$nombre; 
+		   $imagen['imagen']=$nombre;
 	   }
 
 	   try {
@@ -134,7 +129,7 @@ class ClientsController extends Controller
 	        // return false;
 	   }
 
-	   
+
 
     }
 
@@ -148,8 +143,8 @@ class ClientsController extends Controller
     {
     	$cliente = Clients::findOrFail($id);
     	$rutaimagen = public_path('images/clients/'.$cliente->imagen);
-    	
-    	try 
+
+    	try
     	{
     		File::delete($rutaimagen);
        		$cliente->delete();

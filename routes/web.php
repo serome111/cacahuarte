@@ -32,6 +32,26 @@ Route::get('/qr', function () {
     return header('Location: '.'https://drive.google.com/file/d/1O5CQeHiII_opGDC4R1X_mWLKGOUJftYY/view?usp=sharing');
 });
 
+Route::get('/mision', function () {
+    return view('public/blog/mision');
+})->name('mision');
+
+Route::get('/vision', function () {
+    return view('public/blog/vision');
+})->name('vision');
+Route::get('/reseña', function () {
+    return view('public/blog/reseña');
+})->name('reseña');
+Route::get('/objetivos', function () {
+    return view('public/blog/objetivos');
+})->name('objetivos');
+Route::get('/metas', function () {
+    return view('public/blog/metas');
+})->name('metas');
+Route::get('/valores', function () {
+    return view('public/blog/valores');
+})->name('valores');
+
 
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
