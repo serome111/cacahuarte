@@ -54,8 +54,8 @@
                   </h5>
                   <p class="card-text">{{$values[$c]->description}}</p>
                   <div class="read-more">
-                    <a href="#">
-                      <i class="icofont-arrow-right"></i>Leer complet
+                    <a href="{{$values[$c]->link}}">
+                      <i class="icofont-arrow-right"></i>Leer completo
                     </a>
                   </div>
                 </div>
@@ -71,7 +71,7 @@
                     </h5>
                     <p class="card-text">{{$values[$c]->description}}</p>
                     <div class="read-more">
-                      <a href="#">
+                      <a href="{{$values[$c]->link}}">
                         <i class="icofont-arrow-right"></i>Leer completo
                       </a>
                     </div>

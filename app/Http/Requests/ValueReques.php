@@ -27,7 +27,8 @@ class ValueReques extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'state' => 'required',
-            'picture' => 'mimes:jpg,jpeg,png'
+            'picture' => 'mimes:jpg,jpeg,png',
+            'link' => 'required|url'
         ];
     }
 
@@ -36,6 +37,8 @@ class ValueReques extends FormRequest
         return[
             'title.required' => 'debes poner el titulo',
             'description.required' => 'debes poner una descripcion',
+            'link.url' => 'Debe tener una url valida ejemplo https://cacahuarte.com/mision',
+            'link.required' => 'Campo requerido',
             'state.required' => 'deber poner el estado del banner',
             'picture.mimes' => 'debes subir una foto en formato jpg, jpeg o png'
         ];

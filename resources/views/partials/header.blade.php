@@ -31,15 +31,7 @@
           <li><a href="/#about">Nosotros</a></li>
           <li><a href="/#portfolio">Portfolio</a></li>
           <li><a href="/#team">Equipo</a></li>
-          <li><a href="/#pricing">Precios</a></li>
           {{-- <li><a href="blog.html">Blog</a></li> --}}
-          <li class="drop-down"><a href="">Algo mas</a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li><a href="#">Drop Down 2</a></li>
-
-            </ul>
-          </li>
           <li><a href="#contact">Contactanos</a></li>
 
         </ul>

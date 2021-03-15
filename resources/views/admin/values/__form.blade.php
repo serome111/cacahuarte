@@ -1,5 +1,12 @@
 <div class="row">
 	<div class="mb-3 col-sm-6">
+	  <label for="link" class="form-label">Link</label>
+	  <input type="text" class="form-control @error('link') is-invalid @enderror" name="link" id="link" placeholder="enlace web" value="{{ old('link',$values->link) }}">
+	  @error('link')
+	  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
+	  @enderror
+	</div>
+	<div class="mb-3 col-sm-6">
 	  <label for="title" class="form-label">titulo</label>
 	  <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="titulo" value="{{ old('title',$values->title) }}" onkeyup="titleValue();">
 	  @error('title')
@@ -20,7 +27,7 @@
 	  	<span class="invalid-feedback" role="alert"><strong>{{$message}}</strong></span>
 	  	@enderror
 	</div>
-	<div class="mb-3 mb-3 col-md-5">
+	<div class="mb-3 mb-3 col-md-5 mx-auto">
 		<label for="state" class="form-label">Estado del banner</label>
 		<select class="form-select @error('state') is-invalid @enderror"name="state" id="state">
 		  <option value="" selected>Seleccione el estado</option>

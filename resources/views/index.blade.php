@@ -14,7 +14,7 @@
 @include('partials/values')
 @include('partials/portafolio')
 @include('partials/team')
-@include('partials/pricing')
+{{-- @include('partials/pricing') --}}
 @include('partials/faq')
 @include('partials/contact')
 
