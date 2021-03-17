@@ -5,8 +5,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title','titulo')</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+  <meta content="Sistema de administracion de cacahuarte.com" name="description">
+  <meta content="admin system" name="keywords">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
@@ -134,7 +134,7 @@
           </li>
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-          <span>Saved reports</span>
+          <span>Reportes</span>
           <a class="link-secondary" href="#" aria-label="Add a new report">
             <span data-feather="plus-circle"></span>
           </a>
@@ -143,15 +143,15 @@
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file-text"></span>
-              Current month
+              Reportes inventario
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file-text"></span>
-              Last quarter
+              Ultimo mes
             </a>
-          </li>
+          </li> --}}
           </li>
         </ul>
       </div>
