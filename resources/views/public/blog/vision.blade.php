@@ -21,13 +21,12 @@
             <article class="entry entry-single">
 
               <div class="entry-img">
-                <img src="/img/todo2.svg" alt="" class="img-fluid">
+                <img src="/img/vision.jpeg" alt="" class="img-fluid">
               </div>
 
               <h2 class="entry-title">
                 <a href="blog-single.html">Visión</a>
               </h2>
-
 
               <div class="entry-content">
                 <p>

@@ -20,8 +20,8 @@
 
             <article class="entry entry-single">
 
-              <div class="entry-img">
-                <img src="/img/logo5.png" alt="" class="img-fluid">
+              <div class="entry-img mx-auto">
+                <img src="/img/mision.jpeg" alt="" class="img-fluid">
               </div>
 
               <h2 class="entry-title">

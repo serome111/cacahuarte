@@ -13,13 +13,13 @@
           <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="fade-up">
             <div class="member">
               <div class="member-img">
-                <img src="{{ url('images/team/'.$integrante->imagen) }}" class="img-fluid" alt="">
-                <div class="social">
-                  <a href=""><i class="icofont-twitter"></i></a>
-                  <a href=""><i class="icofont-facebook"></i></a>
-                  <a href=""><i class="icofont-instagram"></i></a>
-                  <a href=""><i class="icofont-linkedin"></i></a>
-                </div>
+                <img loading="lazy" src="{{ url('images/team/'.$integrante->imagen) }}" class="img-fluid" alt="{{ $integrante->id }}">
+                {{-- <div class="social">
+                  <a href="#"><i class="icofont-twitter"></i></a>
+                  <a href="#"><i class="icofont-facebook"></i></a>
+                  <a href="#"><i class="icofont-instagram"></i></a>
+                  <a href="#"><i class="icofont-linkedin"></i></a>
+                </div> --}}
               </div>
               <div class="member-info">
                 <h4>{{ $integrante->name ." ". $integrante->lastName}}</h4>
@@ -34,10 +34,10 @@
             <div class="member-img">
               <img src="img/team/team-2.jpg" class="img-fluid" alt="">
               <div class="social">
-                <a href=""><i class="icofont-twitter"></i></a>
-                <a href=""><i class="icofont-facebook"></i></a>
-                <a href=""><i class="icofont-instagram"></i></a>
-                <a href=""><i class="icofont-linkedin"></i></a>
+                <a href="#"><i class="icofont-twitter"></i></a>
+                <a href="#"><i class="icofont-facebook"></i></a>
+                <a href="#"><i class="icofont-instagram"></i></a>
+                <a href="#"><i class="icofont-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info">
@@ -52,10 +52,10 @@
             <div class="member-img">
               <img src="img/team/team-3.jpg" class="img-fluid" alt="">
               <div class="social">
-                <a href=""><i class="icofont-twitter"></i></a>
-                <a href=""><i class="icofont-facebook"></i></a>
-                <a href=""><i class="icofont-instagram"></i></a>
-                <a href=""><i class="icofont-linkedin"></i></a>
+                <a href="#"><i class="icofont-twitter"></i></a>
+                <a href="#"><i class="icofont-facebook"></i></a>
+                <a href="#"><i class="icofont-instagram"></i></a>
+                <a href="#"><i class="icofont-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info">
@@ -70,10 +70,10 @@
             <div class="member-img">
               <img src="img/team/team-4.jpg" class="img-fluid" alt="">
               <div class="social">
-                <a href=""><i class="icofont-twitter"></i></a>
-                <a href=""><i class="icofont-facebook"></i></a>
-                <a href=""><i class="icofont-instagram"></i></a>
-                <a href=""><i class="icofont-linkedin"></i></a>
+                <a href="#"><i class="icofont-twitter"></i></a>
+                <a href="#"><i class="icofont-facebook"></i></a>
+                <a href="#"><i class="icofont-instagram"></i></a>
+                <a href="#"><i class="icofont-linkedin"></i></a>
               </div>
             </div>
             <div class="member-info">
@@ -86,4 +86,4 @@
     </div>
 
   </div>
-</section><!-- End Team Section -->
+</section><!-- End Team Section

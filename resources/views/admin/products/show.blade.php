@@ -32,7 +32,5 @@ h4 {display: inline;}
 			ultima edicion {{ $product->updated_at }}
 		</div>
 	</div>
-
-
 </main>
 @endsection()

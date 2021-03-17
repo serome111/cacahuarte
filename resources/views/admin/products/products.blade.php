@@ -4,7 +4,6 @@
 
 @section('content')
 <main class="col-md-12 ms-sm-auto col-lg-10 px-md-4 p-4">
-
 <div class="content py-3">
 	<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 	<a href="{{ route('products.create') }}" class="nav-link">
@@ -56,6 +55,7 @@
 			    <h5 class="card-title">{{$product->name}}</h5>
 			    <p class="card-text">Codigo: {{$product->code}}</p>
 			    </div>
+
 			    @if($product->state === 0)
 			    	<div class="position-absolute bottom-0 start-50 translate-middle-x badge rounded-pill bg-danger">Inactivo</div>
 			    @endif
@@ -63,6 +63,11 @@
 		</div>
 	@endforeach
 </div>
+<div class="d-flex justify-content-center my-4">
+    {{ $products->links() }}
+</div>
+
+
 </main>
 
 <script type="text/javascript">

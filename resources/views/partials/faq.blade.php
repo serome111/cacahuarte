@@ -10,7 +10,7 @@
       <ul>
         @for($i=0; $i < count($faqs); $i++)
             <li data-aos="fade-up" data-aos-delay="{{$i}}00">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" class="collapse" data-bs-target="#faq-list-{{$i}}">{{ $faqs[$i]->question}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" href="#" class="collapse" data-bs-target="#faq-list-{{$i}}">{{ $faqs[$i]->question}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
               <div id="faq-list-{{$i}}" class="collapse" data-bs-parent=".faq-list">
                 <p>
                   {{ $faqs[$i]->solution }}

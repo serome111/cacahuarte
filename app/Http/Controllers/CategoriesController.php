@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CategoriesReques;
 use App\Models\Categories;
+use App\Models\Products;
 
 
 class CategoriesController extends Controller
@@ -85,7 +86,12 @@ class CategoriesController extends Controller
      */
     public function destroy($id)
     {
-        categories::where('id', $id)->delete();
-        return redirect()->route('categories.index')->with('status', 'Categoria Eliminada con exito');
+        $existencia = Products::where('categorie_id', $id)->get();
+        if(count($existencia) >= 1){
+            return redirect()->route('categories.index')->with('status', 'No puedes Eliminar una categoria que contenga productos.');
+        }else{
+            categories::where('id', $id)->delete();
+            return redirect()->route('categories.index')->with('status', 'Categoria Eliminada con exito');
+        }
     }
 }

@@ -3,13 +3,15 @@
 use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ClientsController;
+use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
 use App\Http\Controllers\bannerController;
-use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\bulleting;
+use App\Http\Controllers\bulletingController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -53,7 +55,8 @@ Route::get('/valores', function () {
     return view('public/blog/valores');
 })->name('valores');
 
-
+#voleting
+Route::post('bulleting',[bulletingController::class, 'store'])->name('bulleting');
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner', bannerController::class,['except' => ['show']])->middleware('auth');

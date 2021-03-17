@@ -19,7 +19,7 @@ class ProductsController extends Controller
     {
        return view('admin.products.products',[
             'categories' => Categories::select('id','name')->get(),
-            'products' => Products::select('id','name','code','stock','picture','state')->get()
+            'products' => Products::select('id','name','code','stock','picture','state')->paginate(10)
        ]);
     }
     public function detail($id)

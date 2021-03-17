@@ -42,8 +42,10 @@
           <div class="col-lg-4 col-md-6 footer-newsletter mx-auto">
             <h4>Suscríbase a nuestro boletín</h4>
             <p>Estaremos compartiendo sobre los lugares donde nos puedes encontrar y eventos de participacion.</p>
-            <form action="" method="post">
-              <input type="email" name="email"><input type="submit" value="Subscribe">
+            <form action="{{ route('bulleting') }}" method="post">
+              @csrf
+              <input type="email" name="email" placeholder="Correo">
+              <input type="submit" value="Subscribe">
             </form>
           </div>
 
@@ -66,8 +68,12 @@
         </div>
       </div>
       <div class="social-links text-center text-lg-right pt-3 pt-lg-0">
-        <a href="https://www.facebook.com/cacahuarte" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="https://www.instagram.com/cacahuarte/" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="https://www.facebook.com/cacahuarte" class="facebook">
+          <i class="bx bxl-facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/cacahuarte/" class="instagram">
+          <i class="bx bxl-instagram"></i>
+        </a>
       </div>
     </div>
   </footer><!-- End Footer

@@ -3,13 +3,14 @@
 
 <head>
   <meta charset="utf-8">
+  <meta content="Sebastian Roa Meneses" name="author">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>@yield('title','titulo')</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-<!-- token  -->
-<meta name="csrf-token" content="{{ csrf_token() }}" />
+  <meta content="Productos de cacao naturales para el hogar o negocio que ayudan a la salud" name="description">
+  <meta content="cacao, cacahuarte, cacao artesanal, chocolate" name="keywords">
+  <!-- token  -->
+  <meta name="csrf-token" content="{{ csrf_token() }}" />
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
@@ -27,7 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ mix('css/style.css')}}" rel="stylesheet">
-  
+
   <!-- =======================================================
   * Template Name: Flexor - v3.0.0
   * Template URL: https://bootstrapmade.com/flexor-free-multipurpose-bootstrap-template/
