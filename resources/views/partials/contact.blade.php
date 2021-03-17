@@ -36,13 +36,14 @@
     <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="300">
       <div class="col-xl-9 col-lg-12 mt-4">
         <form action="{{ route('contact_us.index') }}" method="POST" role="form" class="php-email-form">
+          @csrf
           <div class="row">
             <div class="col-md-6 form-group">
               <input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" data-rule="minlen:4" data-msg="El nombre es requerido con mínimo 4 letras" />
               <div class="validate"></div>
             </div>
             <div class="col-md-6 form-group mt-3 mt-md-0">
-              <input type="email" class="form-control" name="email" id="email" placeholder="´Tu Email" data-rule="email" data-msg="Ingresa un email válido" />
+              <input type="email" class="form-control" name="email" id="email" placeholder="Tu Email" data-rule="email" data-msg="Ingresa un email válido" />
               <div class="validate"></div>
             </div>
           </div>
