@@ -81,6 +81,6 @@ Route::resource('team', TeamController::class)->except(['show'])->middleware('au
 // Contact us
 Route::resource('contact_us', ContactUsController::class)->only(['index','store','destroy'])->middleware('auth');
 
-Auth::routes(['register' => true]);
+Auth::routes(['register' => false]);
 
 

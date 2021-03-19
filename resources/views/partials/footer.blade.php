@@ -10,9 +10,12 @@
             <p>
               Vereda Laguneta <br>
               Finca Piedras Gordas<br>
-              Colombia - Huila<br><br>
+              Elias Huila
+              Colombia<br>
+              <br><br>
+
               <strong>Telefono:</strong> +57 320 863 7017<br>
-              <strong>Email:</strong> cacahuarte@@gmail.com<br>
+              <strong>Email:</strong> cacahuarte@gmail.com<br>
             </p>
           </div>
 

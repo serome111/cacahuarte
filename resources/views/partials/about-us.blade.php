@@ -15,7 +15,7 @@
         <div class="icon-box" data-aos="fade-up">
           <div class="icon"><i class="{{$about->icon1}}"></i></div>
           <h4 class="title"><a href="#">{{$about->title1}}</a></h4>
-          <p class="description">V{{$about->description1}}</p>
+          <p class="description">{{$about->description1}}</p>
         </div>
 
         <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
@@ -27,7 +27,7 @@
         <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
           <div class="icon"><i class="{{$about->icon3}}"></i></div>
           <h4 class="title"><a href="#">{{$about->title3}}</a></h4>
-          <p class="description">{{$about->description}}</p>
+          <p class="description">{{$about->description3}}</p>
         </div>
 
       </div>
