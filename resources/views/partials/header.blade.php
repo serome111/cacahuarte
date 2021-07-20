@@ -10,10 +10,21 @@
 
       </div>
       <div class="cta">
-        <a href="#about" class="scrollto">Conocenos</a><!--Get Started-->
+        <a href="#about" class="scrollto">Conocenos</a>
+        <!--Get Started-->
+        @if (Auth::guest())
+        @else
+          @if(auth()->user()->role->name === "admin")
+            <a href="/base" class="scrollto">Administrar</a>
+          @endif
+        @endif
       </div>
     </div>
   </section>
+
+
+
+
 
   <!-- ======= Header ======= -->
   <header id="header">

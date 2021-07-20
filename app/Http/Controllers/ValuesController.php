@@ -82,15 +82,24 @@ class ValuesController extends Controller
             $remplazar = array("storage","Storage");
             $link = str_replace($remplazar, "public", $value->picture);
             $value->picture = $link;
-            if(Storage::delete($value->picture)){
+            if (Storage::exists($value->picture)) {
+                if(Storage::delete($value->picture)){
+                    $link = $request->file('picture')->store('public/values');
+                    $link = Storage::url($link);
+                    $data = $request->all();
+                    $data['picture'] = $link;
+                    $value->update($data);
+                    return redirect()->route('values.index')->with('status', 'banner actualizado con exito');
+                }else{
+                    return redirect()->route('values.index')->with('status', 'error al eliminar el banner!');
+                }
+            }else{
                 $link = $request->file('picture')->store('public/values');
                 $link = Storage::url($link);
                 $data = $request->all();
                 $data['picture'] = $link;
                 $value->update($data);
                 return redirect()->route('values.index')->with('status', 'banner actualizado con exito');
-            }else{
-                return redirect()->route('values.index')->with('status', 'error al eliminar el banner!');
             }
         }
     }

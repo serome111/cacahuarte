@@ -87,7 +87,7 @@ class bannerController extends Controller
      */
     public function edit(Banners $banner)
     {
-         return view('admin.banner.edit',[
+        return view('admin.banner.edit',[
             'banners' => Banners::findOrFail( $banner->id)
         ]);
     }

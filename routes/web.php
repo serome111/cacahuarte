@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ValuesController;
 use App\Http\Controllers\WhyAboutUsController;
 use App\Http\Controllers\bannerController;
@@ -61,7 +62,7 @@ Route::post('bulleting',[bulletingController::class, 'store'])->name('bulleting'
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner', bannerController::class,['except' => ['show']])->middleware('auth');
 Route::resource('about_us',AboutUsController::class,['except' => ['show']])->middleware('auth');
-Route::resource('values',ValuesController::class,['except' => ['show']])->middleware('auth');
+Route::resource('values',ValuesController::class,['except' => ['show','destroy','store','create']])->middleware('auth');
 
 //Categorias
 Route::resource('categories',CategoriesController::class)->middleware('auth');
@@ -79,8 +80,13 @@ Route::resource('faq', FaqController::class)->except(['show'])->middleware('auth
 // Team
 Route::resource('team', TeamController::class)->except(['show'])->middleware('auth');
 // Contact us
-Route::resource('contact_us', ContactUsController::class)->only(['index','store','destroy'])->middleware('auth');
+Route::resource('contact_us', ContactUsController::class)->only(['index','destroy'])->middleware('auth');
 
-Auth::routes(['register' => false]);
+Route::resource('contact_us', ContactUsController::class)->only(['store']);
+
+
+Route::resource('users', UserController::class)->only(['index','store','destroy'])->middleware('auth');
+
+Auth::routes(['register' => true]);
 
 

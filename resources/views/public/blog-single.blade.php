@@ -37,10 +37,7 @@
 
 <body>
 
-
-
   <main id="main">
-
 
     <!-- ======= Breadcrumbs ======= -->
     <section id="breadcrumbs" class="breadcrumbs">
@@ -56,7 +53,6 @@
     <!-- ======= Blog Section ======= -->
     <section id="blog" class="blog">
       <div class="container">
-
         <div class="row">
 
           <div class="col-lg-8 entries">

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@yield('title','titulo')</title>
+  <title>@yield('title','Cacahuarte')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
@@ -48,11 +48,11 @@
               </label>
             </div>
             <button class="w-100 btn btn-lg btn-primary"  type="submit">Ingresar</button>
-            @if (Route::has('password.request'))
+            {{-- @if (Route::has('password.request'))
               <a class="btn btn-link" href="{{ route('password.request') }}">
                   {{ __('Recordar Contraseña?') }}
               </a>
-            @endif
+            @endif --}}
             <p class="mt-5 mb-3 ">&copy; TorrenteSoftware.com 2021</p>
         </form>
     </main>

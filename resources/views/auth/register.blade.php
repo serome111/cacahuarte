@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@yield('title','titulo')</title>
+  <title>@yield('title','Cacahuarte')</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">

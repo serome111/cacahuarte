@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>@yield('title','titulo')</title>
+  <title>@yield('title','Cacahuarte')</title>
   <meta content="Sistema de administracion de cacahuarte.com" name="description">
   <meta content="admin system" name="keywords">
   <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
@@ -32,7 +32,7 @@
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+  <input class="form-control form-control-dark w-100" type="text" placeholder="Buscar" aria-label="Search" disabled="true">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
       <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">salir</a>
@@ -132,6 +132,13 @@
               </ul>
             </div>
           </li>
+          @if(auth()->user()->role->name === "admin")
+            <li class="nav-item">
+              <ul class="nav flex-column">
+                <a class="{{ request()->routeIs('users.index') ? 'nav-link active' : 'nav-link' }}" href="{{route('users.index') }}"><span data-feather="users"></span> Usuarios</a>
+              </ul>
+            </li>
+          @endif
         </ul>
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Reportes</span>

@@ -1,4 +1,4 @@
-<div class="row">
+	<div class="row">
 	<div class="mb-3 col-sm-6">
 	  <label for="title" class="form-label">titulo</label>
 	  <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title" placeholder="titulo" value="{{ old('title',$banners->title) }}" onkeyup="titleBanner();">

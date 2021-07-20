@@ -26,7 +26,6 @@
 			  		<option value="{{$categorie->id}}">{{$categorie->name}}</option>
 			  	@endforeach
 		  	@endif
-
 			</select>
 		</div>
 		<div class="col-sm-3">

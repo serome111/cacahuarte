@@ -2,9 +2,6 @@
 
 @section('title','Cacahuarte')
 
-
-
-
 @section('content')
 
 @include('partials/banner')
