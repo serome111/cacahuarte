@@ -39,7 +39,16 @@
       <nav class="nav-menu d-none d-lg-block">
         <ul>
           <li class="active"><a href="/">Inicio</a></li>
-          <li><a href="/#about">Nosotros</a></li>
+          <li class="drop-down"><a href="/#about">Nosotros</a>
+            <ul>
+              <li><a href="/mision">Misión</a></li>
+              <li><a href="/vision">Visión</a></li>
+              <li><a href="/metas">Metas</a></li>
+              <li><a href="/reseña">Reseña historica</a></li>
+              <li><a href="/valores">Valores corporativo</a></li>
+              <li><a href="/objetivos">Objetivos Empresariales</a></li>
+            </ul>
+          </li>
           <li><a href="/#portfolio">Portfolio</a></li>
           <li><a href="/#team">Equipo</a></li>
           {{-- <li><a href="blog.html">Blog</a></li> --}}
