@@ -4,13 +4,13 @@
 
     <div class="section-title">
       <h2 data-aos="fade-up">F.A.Q</h2>
-      <p data-aos="fade-up">Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+      <p data-aos="fade-up">Aqui podras encontrar las preguntas mas frecuentes de nuestros.</p>
     </div>
     <div class="faq-list">
       <ul>
         @for($i=0; $i < count($faqs); $i++)
             <li data-aos="fade-up" data-aos-delay="{{$i}}00">
-              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" href="#" class="collapse" data-bs-target="#faq-list-{{$i}}">{{ $faqs[$i]->question}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+              <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" href="#" class="collapse" data-bs-target="#faq-list-{{$i}}">{{ $faqs[$i]->question}} <i class="bx bx-chevron-down icon-show"></i></a>
               <div id="faq-list-{{$i}}" class="collapse" data-bs-parent=".faq-list">
                 <p>
                   {{ $faqs[$i]->solution }}
