@@ -16,7 +16,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('admin.categories.categories',[
+        return view('admin.Categories.categories',[
             'categories' => Categories::latest('updated_at')->get()
         ]);
     }
