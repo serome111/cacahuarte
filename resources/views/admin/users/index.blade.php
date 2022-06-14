@@ -24,7 +24,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-	        <button type="submit" form="CagoriesForm" class="btn btn-primary">Guardar Categoria</button>
+	        <button type="submit" form="CagoriesForm" class="btn btn-primary">Guardar Nuevo usuario</button>
 	      </div>
 	    </div>
 	  </div>
@@ -55,7 +55,7 @@
 	  </thead>
   <tbody>
   	@foreach($users as $user)
-	  	<form id="dCategorie" method="POST" action="{{ route('users.destroy', $user) }}">
+	  	<form id="dCategorie{{$user->id}}" method="POST" action="{{ route('users.destroy', $user) }}">
 			@csrf @method('DELETE')
 		</form>
 		<form id="eCategorie" method="POST" action="{{ route('users.destroy', $user) }}">
@@ -78,7 +78,7 @@
 	      		<button type="button" form="eCategorie" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit{{$user->id}}">
 		  			<span data-feather="edit"></span>
 				</button>
-		      	<button type="submit"  form="dCategorie" class="btn btn-danger">
+		      	<button type="submit"  form="dCategorie{{$user->id}}" class="btn btn-danger">
 		  			<span data-feather="trash-2"></span>
 				</button>
 	      	</td>

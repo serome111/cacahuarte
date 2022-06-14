@@ -19,8 +19,8 @@ h4 {display: inline;}
 				</form>
 				<h3 class="card-title">{{ $product->name }}</h3>
 			    <h5 class="card-subtitle mb-2 text-muted">Ref: {{ $product->code }}</h5>
-			    <h3>Inventario disponible</h3>
-			    <h1> # {{ $product->stock }} </h1>
+			    <h3>En stock #{{ $product->stock }}</h3>
+			    
 			    <h4>Precio de venta</h4>
 			    <h2> $ {{ $product->price }} </h2>
 			    <p class="card-text">{{ $product->description }}</p>

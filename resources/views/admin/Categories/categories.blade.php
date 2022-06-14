@@ -19,7 +19,7 @@
 	      <div class="modal-body">
 	      	<form method="POST" id="CagoriesForm" action="{{ route('categories.store') }}">
 	      	@csrf
-	      	@include('admin.categories.__form')
+	      	@include('admin.Categories.__form')
 			</form>
 	      </div>
 	      <div class="modal-footer">
