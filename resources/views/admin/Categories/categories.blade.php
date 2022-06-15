@@ -88,7 +88,7 @@
 	      <div class="modal-body">
 	      	<form method="POST" id="CagoriesForm{{$categorie->id}}" action="{{ route('categories.update',$categorie) }}">
 	      	@csrf @method('PATCH')
-	      	@include('admin.categories.__form')
+	      	@include('admin.Categories.__form')
 			</form>
 	      </div>
 	      <div class="modal-footer">
