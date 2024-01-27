@@ -102,56 +102,91 @@
 
 	function actualizarMensajes(mensajes) {
     const container = document.getElementById('mensajes-container');
-    container.innerHTML = '';
-    if (mensajes[0] === "error") {
-      container.innerHTML = '<p>No se encontraron mensajes.</p>';
-      return
-    }
-    mensajes.forEach(mensaje => {
-      const mensajeDiv = document.createElement('div');
-      mensajeDiv.classList.add('col-sm-6', 'mb-5', 'mx-auto');
-      mensajeDiv.innerHTML = `
-          <div class="card border-secondary">
-              <div class="card-header">
-                  ${mensaje.name} - ${mensaje.email}
-              </div>
-              <div class="card-body">
-                  <h5 class="card-title">Asunto: ${mensaje.subject}</h5>
-                  <p class="card-text">${mensaje.message}</p>
-                  <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalEliminar${mensaje.id}">
-                      Eliminar
-                  </button>
-              </div>
-              <div class="card-footer text-muted">
-                  ${mensaje.created_at}
-              </div>
-          </div>
+    container.innerHTML = ''; // Limpia el contenedor
 
-          <!-- Modal -->
-          <div class="modal fade" id="modalEliminar${mensaje.id}" tabindex="-1" aria-labelledby="modalLabelEliminar${mensaje.id}" aria-hidden="true">
-              <div class="modal-dialog">
-                  <div class="modal-content">
-                      <div class="modal-header">
-                          <h5 class="modal-title">Eliminando...</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                          <p>¿Realmente desea eliminar este mensaje? Una vez hecho no se podrá recuperar.</p>
-                      </div>
-                      <div class="modal-footer">
-                        <form method="POST" action="{{ route('contact_us.destroy', $mensaje->id) }}">
-                            @csrf @method('DELETE')
-                            <a rel="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</a>
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
-                        </form>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      `;
-      container.appendChild(mensajeDiv);
-    });
+    if (mensajes.length === 0) {
+        const emptyMessage = document.createElement('p');
+        emptyMessage.textContent = 'No se encontraron mensajes.';
+        container.appendChild(emptyMessage);
+    } else {
+        mensajes.forEach(mensaje => {
+            // Crear elementos de la tarjeta
+            const card = document.createElement('div');
+            card.className = 'card border-secondary mb-3';
+
+            const cardHeader = document.createElement('div');
+            cardHeader.className = 'card-header';
+            cardHeader.textContent = `${mensaje.name} - ${mensaje.email}`;
+
+            const cardBody = document.createElement('div');
+            cardBody.className = 'card-body';
+
+            const cardTitle = document.createElement('h5');
+            cardTitle.className = 'card-title';
+            cardTitle.textContent = `Asunto: ${mensaje.subject}`;
+
+            const cardText = document.createElement('p');
+            cardText.className = 'card-text';
+            cardText.textContent = mensaje.message;
+
+            const cardFooter = document.createElement('div');
+            cardFooter.className = 'card-footer text-muted';
+            cardFooter.textContent = mensaje.created_at;
+
+            // Crear botón que dispara el modal
+            const deleteButton = document.createElement('button');
+            deleteButton.className = 'btn btn-danger';
+            deleteButton.textContent = 'Eliminar';
+            deleteButton.setAttribute('data-bs-toggle', 'modal');
+            deleteButton.setAttribute('data-bs-target', `#modalEliminar${mensaje.id}`);
+
+            // Construcción del modal
+            const modal = document.createElement('div');
+            modal.className = 'modal fade';
+            modal.id = `modalEliminar${mensaje.id}`;
+            modal.setAttribute('tabindex', '-1');
+            modal.setAttribute('aria-labelledby', `modalLabelEliminar${mensaje.id}`);
+            modal.setAttribute('aria-hidden', 'true');
+            modal.innerHTML = `
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabelEliminar${mensaje.id}">Eliminando...</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            ¿Realmente desea eliminar este mensaje? Una vez hecho no se podrá recuperar.
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" onclick="eliminarMensaje(${mensaje.id})">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Añadir elementos a la tarjeta
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(deleteButton);
+            card.appendChild(cardHeader);
+            card.appendChild(cardBody);
+            card.appendChild(cardFooter);
+
+            // Añadir la tarjeta y el modal al contenedor
+            container.appendChild(card);
+            container.appendChild(modal);
+        });
+    }
 }
+
+function eliminarMensaje(id) {
+    // Lógica para eliminar el mensaje
+    // Puede ser una solicitud fetch a tu servidor para eliminar el mensaje
+    console.log('Eliminar mensaje con id:', id);
+    // Recuerda actualizar la interfaz de usuario después de eliminar
+}
+
 
 
 </script>

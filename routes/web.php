@@ -88,6 +88,6 @@ Route::resource('contact_us', ContactUsController::class)->only(['store']);
 
 Route::resource('users', UserController::class)->only(['index','store','destroy'])->middleware('auth');
 
-Auth::routes(['register' => true]);
+Auth::routes(['register' => False]);
 
 
