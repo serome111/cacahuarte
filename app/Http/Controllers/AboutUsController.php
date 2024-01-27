@@ -17,7 +17,7 @@ class AboutUsController extends Controller
     {
         return view('admin.about_us.about_us',[
             'about_us' => AboutUs::findOrFail(1),
-
+            'global_phone' => env('global_phone', ''),
             'icons' => Icon::latest('created_at')->get()
         ]);
     }

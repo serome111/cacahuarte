@@ -28,7 +28,7 @@
         <div class="info-box">
           <i class="bx bx-phone-call"></i>
           <h3>Llámanos</h3>
-          <p>+57 320 863 7017<br>+57 314 332 8840</p>
+          <p>+57 {{$global_phone}}<br>+57 {{$global_phone2}}</p>
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
     <section id="portfolio" class="portfolio">
       <div class="container">
         <div class="section-title">
-          <h2 data-aos="fade-up">Portfolio</h2>
+          <h2 data-aos="fade-up">Portafolio</h2>
           <p data-aos="fade-up">Estos son todos los productos que hemos producido con nuestro emprendimiento que ya mismo puedes pedir y para disfrutar en tu hogar</p>
         </div>
 

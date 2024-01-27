@@ -25,6 +25,8 @@ class IndexController extends Controller
         // return view('welcome');
         return view('index',[
             'banners' => Banners::where('state', 1)->get(),
+            'global_phone' => env('global_phone', ''),
+            'global_phone2' => env('global_phone2', ''),
             'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
                 ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
                 ->get(),

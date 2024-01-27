@@ -15,7 +15,9 @@ class ContactUsController extends Controller
     public function index()
     {
         return view('admin.contact_us.contact_us',[
-            'contact' => ContactUs::latest('updated_at')->get()
+            'global_phone' => env('global_phone', ''),
+            'contact' => ContactUs::latest('updated_at')->get(),
+            'cantidad' => ContactUs::latest('updated_at')->get()->count()
         ]);
     }
 
@@ -27,6 +29,23 @@ class ContactUsController extends Controller
     public function create()
     {
         //
+    }
+
+    public function filter(Request $request)
+    {   
+        try {
+            $request->validate([
+                'text' => 'required|string',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['error' => 'Valor no valido o en 0'], 422);
+        }
+        $text = $request->input('text');
+        $contacts = ContactUs::where('email', 'LIKE', "%$text%")->get();
+        if ($contacts->isEmpty()) {
+            return response()->json(["error"]);
+        }
+        return response()->json($contacts);
     }
 
     /**
