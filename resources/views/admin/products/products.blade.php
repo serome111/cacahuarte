@@ -18,14 +18,14 @@
 		<div class="col-sm-3">
 		  	<label for="catgriafilter" class="form-label">Filtrar por categoria</label>
 		  	<select class="form-select" name="catgriafilter" id="catgriafilter" aria-label="Default select example" onchange="filter(2);">
-			  <option value="" selected>Categoria</option>
-			  @if($categories->count() === 0)
-			  <option value="">No existen categorias creadas</option>
-			@else
-				@foreach($categories as $categorie)
-			  		<option value="{{$categorie->id}}">{{$categorie->name}}</option>
-			  	@endforeach
-		  	@endif
+				<option value="" selected>Categoria</option>
+			 	@if($categories->count() === 0)
+			  		<option value="">No existen categorias creadas</option>
+				@else
+					@foreach($categories as $categorie)
+				  		<option value="{{$categorie->id}}">{{$categorie->name}}</option>
+				  	@endforeach
+		  		@endif
 			</select>
 		</div>
 		<div class="col-sm-3">
@@ -34,12 +34,11 @@
 			  <option value="" selected>Estado</option>
 			  <option value="1">Activo</option>
 			  <option value="0">Inactivo</option>
-
 			</select>
 		</div>
 	</div>
 
-	</div>
+</div>
 
 
 <div class="row row-cols-1 row-cols-md-5 g-3">
@@ -50,15 +49,15 @@
 				<a href="{{ route('products.show',$product ) }}">
 			     <img src="{{$product->picture}}" class="card-img-top" alt="{{$product->id}}" height="140">
 			    </a>
-			  <div class="card-body text-center">
-			    <h5 class="card-title">{{$product->name}}</h5>
-			    <p class="card-text">Codigo: {{$product->code}}</p>
-			    </div>
+				<div class="card-body text-center">
+				    <h5 class="card-title">{{$product->name}}</h5>
+				    <p class="card-text">Codigo: {{$product->code}}</p>
+				</div>
 
 			    @if($product->state === 0)
 			    	<div class="position-absolute bottom-0 start-50 translate-middle-x badge rounded-pill bg-danger">Inactivo</div>
 			    @endif
-			  </div>
+			</div>
 		</div>
 	@endforeach
 </div>
@@ -81,7 +80,7 @@
 			var datos = new FormData();
 			datos.append('code', value);
 			// console.log(datos)
-			fetch('{{ route('filter') }}',{
+			fetch("{{ route('filter') }}",{
 				headers: {
        				'X-CSRF-TOKEN': window.CSRF_TOKEN// <--- aquí el token
     			},

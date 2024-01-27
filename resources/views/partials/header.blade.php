@@ -4,7 +4,7 @@
       <div class="contact-info">
         <ul>
           <li><i class="icofont-envelope"></i><a href="mailto:cacahuarte@gmail.com">cacahuarte@gmail.com</a></li>
-          <li><i class="icofont-phone"></i> +57 320 863 7017</li>
+          <li><i class="icofont-phone"></i> +57 {{$global_phone}}</li>
           <li><i class="icofont-clock-time icofont-flip-horizontal"></i> Lunes-Viernes 9am - 5pm</li>
         </ul>
 
@@ -49,7 +49,7 @@
               <li><a href="/objetivos">Objetivos Empresariales</a></li>
             </ul>
           </li>
-          <li><a href="/#portfolio">Portfolio</a></li>
+          <li><a href="/#portfolio">Portafolio</a></li>
           <li><a href="/#team">Equipo</a></li>
           {{-- <li><a href="blog.html">Blog</a></li> --}}
           <li><a href="#contact">Contactanos</a></li>

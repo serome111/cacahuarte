@@ -9,6 +9,7 @@
   <title>@yield('title','titulo')</title>
   <meta content="Productos de cacao naturales para el hogar o negocio que ayudan a la salud" name="description">
   <meta content="cacao, cacahuarte, cacao artesanal, chocolate" name="keywords">
+  <meta name="facebook-domain-verification" content="olvivc4fg8f87hme5yfi0mkp74z5q1" />
   <!-- token  -->
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <!-- Favicons -->

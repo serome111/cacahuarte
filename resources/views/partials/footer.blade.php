@@ -14,7 +14,7 @@
               Colombia
               <br><br>
 
-              <strong>Telefono:</strong> +57 320 863 7017<br>
+              <strong>Telefono:</strong> +57 {{$global_phone}}<br>
               <strong>Email:</strong> cacahuarte@gmail.com<br>
             </p>
           </div>
@@ -24,7 +24,7 @@
             <ul>
               <li><i class="bx bx-chevron-right"></i> <a href="/">inicio</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="/#about">Nosotros</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="/#portfolio">Portfolio</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="/#portfolio">Portafolio</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="/#team">Equipo</a></li>
              {{--  <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li> --}}

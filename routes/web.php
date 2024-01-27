@@ -33,27 +33,27 @@ Route::get('/base', function () {
 })->name('dashboard')->middleware('auth');
 
 Route::get('/qr', function () {
-    return header('Location: '.'https://drive.google.com/file/d/1O5CQeHiII_opGDC4R1X_mWLKGOUJftYY/view?usp=sharing');
+    return header('Location: '.'https://instagram.com/cacahuarte');
 });
 
 Route::get('/mision', function () {
-    return view('public/blog/mision');
+    return view('public/blog/mision',['global_phone' => env('global_phone', '')]);
 })->name('mision');
 
 Route::get('/vision', function () {
-    return view('public/blog/vision');
+    return view('public/blog/vision',['global_phone' => env('global_phone', '')]);
 })->name('vision');
 Route::get('/reseña', function () {
-    return view('public/blog/reseña');
+    return view('public/blog/reseña',['global_phone' => env('global_phone', '')]);
 })->name('reseña');
 Route::get('/objetivos', function () {
-    return view('public/blog/objetivos');
+    return view('public/blog/objetivos',['global_phone' => env('global_phone', '')]);
 })->name('objetivos');
 Route::get('/metas', function () {
-    return view('public/blog/metas');
+    return view('public/blog/metas',['global_phone' => env('global_phone', '')]);
 })->name('metas');
 Route::get('/valores', function () {
-    return view('public/blog/valores');
+    return view('public/blog/valores',['global_phone' => env('global_phone', '')]);
 })->name('valores');
 
 #voleting
@@ -81,6 +81,7 @@ Route::resource('faq', FaqController::class)->except(['show'])->middleware('auth
 Route::resource('team', TeamController::class)->except(['show'])->middleware('auth');
 // Contact us
 Route::resource('contact_us', ContactUsController::class)->only(['index','destroy'])->middleware('auth');
+Route::post('/contact_us/filter','App\Http\Controllers\ContactUsController@filter')->name('filter-message');
 
 Route::resource('contact_us', ContactUsController::class)->only(['store']);
 
