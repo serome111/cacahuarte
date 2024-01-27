@@ -33,7 +33,7 @@ Route::get('/base', function () {
 })->name('dashboard')->middleware('auth');
 
 Route::get('/qr', function () {
-    return header('Location: '.'https://drive.google.com/file/d/1O5CQeHiII_opGDC4R1X_mWLKGOUJftYY/view?usp=sharing');
+    return header('Location: '.'https://instagram.com/cacahuarte');
 });
 
 Route::get('/mision', function () {
