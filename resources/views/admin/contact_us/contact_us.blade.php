@@ -4,12 +4,14 @@
 
 @section('content')
 <main class="col-md-12 ms-sm-auto col-lg-10 px-md-4 p-4">
-		<p class="display-4 text-center">Mensajes de nuestros clientes: {{ $cantidad }}</p>
+		<p class="display-4 text-center" id="mensaje-cantidad">Mensajes de nuestros clientes: {{ $cantidad }}</p>
 
 		<div class="mx-auto col-sm-5 pb-4">
 		  <input type="text" class="form-control" id="filter-email" placeholder="Filtrar mensaje..." onkeyup="filter(this);">
 		</div>
-
+		<div class="col-sm-5 pb-4">
+			<button class="btn btn-danger" onclick="openDeleteFilteredModal()">Eliminar mensajes filtrados</button>
+		</div>
 		<div class="row" id="mensajes-container">
 			@if($contact->isEmpty())
 				<div>
@@ -67,6 +69,24 @@
 			   @endforeach
 			@endif
 		</div>
+		<!-- Modal para eliminar mensajes filtrados -->
+		<div class="modal fade" id="modalEliminarFiltrados" tabindex="-1" aria-labelledby="modalLabelEliminarFiltrados" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modalLabelEliminarFiltrados">Eliminar mensajes filtrados</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<p>¿Realmente desea eliminar todos los mensajes filtrados? Una vez hecho no se podrán recuperar.</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeDeleteFilteredModal('modalEliminarFiltrados');">Cerrar</button>
+						<button type="button" class="btn btn-primary" onclick="eliminarMensajesFiltrados()">Eliminar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 </main>
 
 <script type="text/javascript">
@@ -74,10 +94,10 @@
 		window.CSRF_TOKEN = '{{ csrf_token() }}';
 		if(value){
 			filter_mail = document.getElementById("filter-email").value;
-			if (filter_mail.trim() === '') {
-        console.log('Por favor, introduce un texto.');
-        return;
-    	}
+		// 	if (filter_mail.trim() === '') {
+        // console.log('Por favor, introduce un texto.');
+        // return;
+    	// }
 			var datos = new FormData();
 			datos.append('text', filter_mail);
 			fetch("{{ route('filter-message') }}",{
@@ -103,7 +123,9 @@
 	function actualizarMensajes(mensajes) {
     const container = document.getElementById('mensajes-container');
     container.innerHTML = ''; // Limpia el contenedor
-
+	// Actualizar el contador de mensajes
+	const mensajeCantidad = document.getElementById('mensaje-cantidad');
+	mensajeCantidad.textContent = `Mensajes de nuestros clientes: ${mensajes.length}`;
     if (mensajes.length === 0) {
         const emptyMessage = document.createElement('p');
         emptyMessage.textContent = 'No se encontraron mensajes.';
@@ -112,7 +134,8 @@
         mensajes.forEach(mensaje => {
             // Crear elementos de la tarjeta
             const card = document.createElement('div');
-            card.className = 'card border-secondary mb-3';
+            card.className = 'card border-secondary mb-3 mensaje-card';
+			card.setAttribute('data-id', mensaje.id);
 
             const cardHeader = document.createElement('div');
             cardHeader.className = 'card-header';
@@ -186,6 +209,42 @@ function eliminarMensaje(id) {
     console.log('Eliminar mensaje con id:', id);
     // Recuerda actualizar la interfaz de usuario después de eliminar
 }
+
+	function openDeleteFilteredModal() {
+        const filteredCards = document.querySelectorAll('.mensaje-card');
+        if (filteredCards.length > 0) {
+            document.getElementById('modalEliminarFiltrados').classList.add('show');
+            document.getElementById('modalEliminarFiltrados').style.display = 'block';
+        } else {
+            alert('No hay mensajes filtrados para eliminar.');
+        }
+    }
+
+	function closeDeleteFilteredModal(modalId) {
+        const modal = document.getElementById(modalId);
+        modal.classList.remove('show');
+        modal.style.display = 'none';
+    }
+
+	function eliminarMensajesFiltrados() {
+        const filteredCards = document.querySelectorAll('.mensaje-card');
+        const ids = Array.from(filteredCards).map(card => card.getAttribute('data-id'));
+        fetch("{{ route('contact_us.bulk_destroy') }}", {
+            headers: {
+                'X-CSRF-TOKEN': window.CSRF_TOKEN,
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({ ids })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // Actualiza la UI eliminando las tarjetas de mensajes filtrados
+            filteredCards.forEach(card => card.remove());
+            closeDeleteFilteredModal('modalEliminarFiltrados');
+        }).catch(error => console.error('Error:', error));
+    }
 
 
 
