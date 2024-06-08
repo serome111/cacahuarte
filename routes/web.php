@@ -82,6 +82,8 @@ Route::resource('team', TeamController::class)->except(['show'])->middleware('au
 // Contact us
 Route::resource('contact_us', ContactUsController::class)->only(['index','destroy'])->middleware('auth');
 Route::post('/contact_us/filter','App\Http\Controllers\ContactUsController@filter')->name('filter-message');
+Route::post('/contact-us/bulk-destroy', [ContactUsController::class, 'bulkDestroy'])->name('contact_us.bulk_destroy');
+
 
 Route::resource('contact_us', ContactUsController::class)->only(['store']);
 
