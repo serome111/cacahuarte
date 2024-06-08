@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ContactUs;
+use App\Models\EmailSpam;
 use Illuminate\Http\Request;
 
 class ContactUsController extends Controller
@@ -33,6 +34,10 @@ class ContactUsController extends Controller
 
     public function filter(Request $request)
     {   
+        if ($request->input('text') == '') {
+            $contacts = ContactUs::get();
+            return response()->json($contacts);
+        }
         try {
             $request->validate([
                 'text' => 'required|string',
@@ -41,9 +46,9 @@ class ContactUsController extends Controller
             return response()->json(['error' => 'Valor no valido o en 0'], 422);
         }
         $text = $request->input('text');
-        $contacts = ContactUs::where('email', 'LIKE', "%$text%")->get();
+        $contacts = ContactUs::where('email', 'LIKE', "%$text%")->orWhere('subject', 'LIKE', "%$text%")->orWhere('name', 'LIKE', "%$text%")->get();
         if ($contacts->isEmpty()) {
-            return response()->json(["error"]);
+            return response()->json([]);
         }
         return response()->json($contacts);
     }
@@ -56,7 +61,10 @@ class ContactUsController extends Controller
      */
     public function store(Request $request)
     {
-        ContactUs::create($request->all());
+        $is_spam = EmailSpam::where('email', $request->input('email'))->first();
+        if (!$is_spam) {
+            ContactUs::create($request->all());
+        }
         return "OK";
     }
 
@@ -105,5 +113,21 @@ class ContactUsController extends Controller
         $mensaje = ContactUs::findOrFail($id);
         $mensaje->delete();
         return redirect("contact_us")->with('status','Mensaje eliminado con éxito');
+    }
+
+    public function bulkDestroy(Request $request)
+    {
+        $ids = $request->input('ids');
+        $spam = ContactUs::whereIn('id', $ids)->pluck('email');
+        // Crear un array de datos a insertar
+        $data = $spam->map(function ($email) {
+            return ['email' => $email, 'created_at' => now(), 'updated_at' => now()];
+        })->toArray();
+
+        // Insertar los datos en la tabla email_spam
+        EmailSpam::insert($data);
+        // Eliminar lo mensajes
+        ContactUs::whereIn('id', $ids)->delete();
+        return response()->json(['success' => 'Mensajes eliminados correctamente']);
     }
 }
