@@ -25,6 +25,7 @@ class ProductsController extends Controller
     public function detail($id)
     {
         return view('public.detailProduc',[
+            'global_phone' => env('global_phone', ''),
             'product' =>  Products::findOrFail($id)
         ]);
     }
