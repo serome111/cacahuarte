@@ -9,7 +9,7 @@
 
 ## About Cacahuarte page
 
-Cacahuarte is a web application with desing expressive, elegant syntax. We believe admin web must be an enjoyable and creative experience to be truly fulfilling.
+Cacahuarte is a web application with design expressive, elegant syntax. We believe admin web must be an enjoyable and creative experience to be truly fulfilling.
 
 - [Simple, fast routing engine](https://laravel.com/docs/routing).
 - [Powerful dependency injection container](https://laravel.com/docs/container).
