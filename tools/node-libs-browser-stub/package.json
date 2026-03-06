@@ -1,0 +1,6 @@
+{
+    "name": "node-libs-browser",
+    "version": "2.2.1-security-stub",
+    "private": true,
+    "main": "index.js"
+}
