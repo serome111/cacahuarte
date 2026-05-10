@@ -132,6 +132,12 @@
               </ul>
             </div>
           </li>
+          <li class="nav-item">
+            <a class="{{ request()->routeIs('costs.*') ? 'nav-link active' : 'nav-link' }}" href="{{ route('costs.index') }}">
+              <span data-feather="dollar-sign"></span>
+              Costos y Presupuestos
+            </a>
+          </li>
           @if(auth()->user()->role->name === "admin")
             <li class="nav-item">
               <ul class="nav flex-column">

@@ -4,6 +4,7 @@ use App\Http\Controllers\AboutUsController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\CostBudgetController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\TeamController;
@@ -70,6 +71,18 @@ Route::resource('categories',CategoriesController::class)->middleware('auth');
 Route::resource('products',ProductsController::class);
 Route::post('/products/filter','App\Http\Controllers\ProductsController@filter')->name('filter');
 Route::get('/detalles/{product}','App\Http\Controllers\ProductsController@detail')->name('detail');
+Route::get('costos-presupuestos', [CostBudgetController::class, 'index'])->name('costs.index')->middleware('auth');
+Route::post('costos-presupuestos/simular', [CostBudgetController::class, 'simulate'])->name('costs.simulate')->middleware('auth');
+Route::put('costos-presupuestos/settings', [CostBudgetController::class, 'updateSettings'])->name('costs.settings.update')->middleware('auth');
+Route::post('costos-presupuestos/product-types', [CostBudgetController::class, 'storeProductType'])->name('costs.product-types.store')->middleware('auth');
+Route::put('costos-presupuestos/product-types/{productType}', [CostBudgetController::class, 'updateProductType'])->name('costs.product-types.update')->middleware('auth');
+Route::post('costos-presupuestos/ingredients', [CostBudgetController::class, 'storeIngredient'])->name('costs.ingredients.store')->middleware('auth');
+Route::put('costos-presupuestos/ingredients/{ingredient}', [CostBudgetController::class, 'updateIngredient'])->name('costs.ingredients.update')->middleware('auth');
+Route::post('costos-presupuestos/presentations', [CostBudgetController::class, 'storePresentation'])->name('costs.presentations.store')->middleware('auth');
+Route::put('costos-presupuestos/presentations/{presentation}', [CostBudgetController::class, 'updatePresentation'])->name('costs.presentations.update')->middleware('auth');
+Route::post('costos-presupuestos/formulas', [CostBudgetController::class, 'storeFormulaItem'])->name('costs.formulas.store')->middleware('auth');
+Route::put('costos-presupuestos/formulas/{formulaItem}', [CostBudgetController::class, 'updateFormulaItem'])->name('costs.formulas.update')->middleware('auth');
+Route::delete('costos-presupuestos/formulas/{formulaItem}', [CostBudgetController::class, 'destroyFormulaItem'])->name('costs.formulas.destroy')->middleware('auth');
 //tarjetas why-about-us
 Route::resource('why-about-us', WhyAboutUsController::class,['only' => ['index', 'edit', 'update']])->middleware('auth');
 
@@ -91,5 +104,3 @@ Route::resource('contact_us', ContactUsController::class)->only(['store']);
 Route::resource('users', UserController::class)->only(['index','store','destroy'])->middleware('auth');
 
 Auth::routes(['register' => False]);
-
-
