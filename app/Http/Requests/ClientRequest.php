@@ -28,7 +28,7 @@ class ClientRequest extends FormRequest
             'nombreRepresentante' => 'required',
             'correo' => 'required',
             'telefono' => 'required',
-            'imagen' => 'mimes:jpg,jpeg,png',
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|extensions:jpg,jpeg,png|max:5120',
             'departamento' => 'required',
             'ciudad' => 'required',
             'estado' => 'required'

@@ -13,3 +13,7 @@ npm-debug.log
 yarn-error.log
 .DS_Store
 /public/images
+
+# Local database exports can contain personal data and password hashes.
+/*.sql
+/.phpunit.cache

@@ -26,7 +26,7 @@ class AboutUsRequest extends FormRequest
         return [
             'title' => 'required',
             'description' => 'required',
-            'photo' => 'mimes:jpg,jpeg,png',
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|extensions:jpg,jpeg,png|max:5120',
             'link' => 'required',
 
             'title1' => 'required',

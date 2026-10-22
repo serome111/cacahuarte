@@ -31,21 +31,27 @@ jobs:
       - name: Configurar PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'  # <--- aquí el cambio
-          extensions: mbstring, bcmath, pdo_mysql
+          php-version: '8.3.36'
+          extensions: mbstring, bcmath, pdo_mysql, pdo_sqlite
           coverage: none
 
 
       - name: Configurar Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '22'
+
+      - name: Verificar parche de PHP
+        run: php tools/check-php-security.php
 
       - name: Instalar dependencias de PHP
         run: composer install --no-progress --prefer-dist
 
       - name: Instalar dependencias de JS
-        run: npm install
+        run: npm ci
+
+      - name: Auditar dependencias JS
+        run: npm audit
 
       - name: Compilar assets
         run: npm run prod
@@ -55,6 +61,15 @@ jobs:
 
       - name: Generar key
         run: php artisan key:generate
+
+      - name: Auditar dependencias PHP
+        run: composer audit
+
+      - name: Pruebas de seguridad
+        run: vendor/bin/phpunit tests/Feature/SecurityTest.php
+
+      - name: Pruebas unitarias
+        run: vendor/bin/phpunit --testsuite Unit
 
       # - name: Correr migraciones
       #   run: php artisan migrate --force

@@ -49,7 +49,7 @@ class bannerController extends Controller
         $link = $request->file('photo')->store('public/banners');
         $link = Storage::url($link);
         $request->photo = 1;
-        $data = $request->all();
+        $data = $request->validated();
         $data['photo'] = $link;
         $count = Banners::count();
         if ($request->state == 1) {
@@ -114,7 +114,7 @@ class bannerController extends Controller
                 if(Storage::delete($banner->photo)){
                     $link = $request->file('photo')->store('public/banners');
                     $link = Storage::url($link);
-                    $data = $request->all();
+                    $data = $request->validated();
                     $data['photo'] = $link;
                     $banner->update($data);
                     return redirect()->route('banner.index')->with('status', 'banner actualizado con exito');
@@ -129,7 +129,7 @@ class bannerController extends Controller
         }else{
             $link = $request->file('photo')->store('public/banners');
             $link = Storage::url($link);
-            $data = $request->all();
+            $data = $request->validated();
             $data['photo'] = $link;
             $banner->update($data);
             return redirect()->route('banner.index')->with('status', 'banner actualizado con exito');

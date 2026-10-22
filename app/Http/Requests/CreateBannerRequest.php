@@ -27,7 +27,7 @@ class CreateBannerRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             'state' => 'required',
-            'photo' => 'mimes:jpg,jpeg,png'
+            'photo' => 'nullable|image|mimes:jpg,jpeg,png|extensions:jpg,jpeg,png|max:5120'
         ];
     }
 

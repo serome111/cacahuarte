@@ -86,7 +86,7 @@ class ValuesController extends Controller
                 if(Storage::delete($value->picture)){
                     $link = $request->file('picture')->store('public/values');
                     $link = Storage::url($link);
-                    $data = $request->all();
+                    $data = $request->validated();
                     $data['picture'] = $link;
                     $value->update($data);
                     return redirect()->route('values.index')->with('status', 'banner actualizado con exito');
@@ -96,7 +96,7 @@ class ValuesController extends Controller
             }else{
                 $link = $request->file('picture')->store('public/values');
                 $link = Storage::url($link);
-                $data = $request->all();
+                $data = $request->validated();
                 $data['picture'] = $link;
                 $value->update($data);
                 return redirect()->route('values.index')->with('status', 'banner actualizado con exito');

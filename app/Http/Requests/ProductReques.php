@@ -30,7 +30,7 @@ class ProductReques extends FormRequest
             'stock' => 'required',
             'categorie_id' => 'required',
             'state' => 'required',
-            'picture' => 'mimes:jpg,jpeg,png',
+            'picture' => 'nullable|image|mimes:jpg,jpeg,png|extensions:jpg,jpeg,png|max:5120',
             'description' => 'required'
         ];
     }

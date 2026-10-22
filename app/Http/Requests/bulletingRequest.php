@@ -24,7 +24,7 @@ class bulletingRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'email'
+            'email' => 'required|email|max:255'
         ];
     }
     public function messages()

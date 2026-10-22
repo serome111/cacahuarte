@@ -47,10 +47,10 @@ class ClientsController extends Controller
     public function store(ClientRequest $request)
     {
 
-        $entrada=$request->all();
+        $entrada=$request->validated();
 	   if($archivo=$request->file('imagen')){
 
-		   $nombre=$archivo->getClientOriginalName();
+		   $nombre=$archivo->hashName();
 
 		   $archivo->move('images/clients', $nombre);
 
@@ -102,10 +102,9 @@ class ClientsController extends Controller
      */
     public function update(ClientRequest $request, $id)
     {
-    	// return $request->all();
     	$cliente = Clients::findOrFail($id);
 		//usamos fill para llenar los campos del modelo pero aún no se guardan porque hay operaciones por realizar
-    	$imagen = $cliente->fill($request->all());
+        $imagen = $cliente->fill($request->validated());
 
     	if($archivo=$request->file('imagen')){
 
@@ -115,13 +114,13 @@ class ClientsController extends Controller
 				File::delete(public_path('images/clients/'.Clients::findOrFail($id)->imagen));
 			}
 
-		   $nombre=$archivo->getClientOriginalName();
+		   $nombre=$archivo->hashName();
 		   $archivo->move('images/clients', $nombre);
 		   $imagen['imagen']=$nombre;
 	   }
 
 	   try {
-	  		$cliente->update($request->all($imagen['imagen']));
+            $cliente->save();
 	   		//redireccionamos al index
 	  		 return redirect("clients")->with('status','Cliente actualizado con éxito');
 	   } catch (Exception $e) {

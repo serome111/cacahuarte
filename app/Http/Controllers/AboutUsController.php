@@ -44,7 +44,7 @@ class AboutUsController extends Controller
                 if(Storage::delete($request->photo)){
                     $link = $request->file('photo')->store('public/about_us');
                     $link = Storage::url($link);
-                    $data = $request->all();
+                    $data = $request->validated();
                     $data['photo'] = $link;
                     $about->update($data);
                     return redirect()->route('about_us.index')->with('status', 'se actualizo con exito');

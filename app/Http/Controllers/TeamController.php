@@ -42,10 +42,10 @@ class TeamController extends Controller
     public function store(TeamRequest $request)
     {
         // return $request;
-        $entrada=$request->all();
+        $entrada=$request->validated();
         if($archivo=$request->file('imagen')){
            
-           $nombre=$archivo->getClientOriginalName();
+           $nombre=$archivo->hashName();
            
            $archivo->move('images/team', $nombre);
            
@@ -98,7 +98,7 @@ class TeamController extends Controller
     {
         $integrante = Team::findOrFail($team->id);
         //usamos fill para llenar los campos del modelo pero aún no se guardan porque hay operaciones por realizar
-        $imagen = $integrante->fill($request->all());
+        $imagen = $integrante->fill($request->validated());
         
         if($archivo=$request->file('imagen')){
             
@@ -109,7 +109,7 @@ class TeamController extends Controller
                 
             }
            
-           $nombre=$archivo->getClientOriginalName();
+           $nombre=$archivo->hashName();
            
            $archivo->move('images/team', $nombre);
            
@@ -117,7 +117,7 @@ class TeamController extends Controller
        }
 
        try {
-            $integrante->update($request->all($imagen['imagen']));
+            $integrante->save();
             //redireccionamos al index
              return redirect("team")->with('status','Integrante actualizado con éxito');
        } catch (Exception $e) {

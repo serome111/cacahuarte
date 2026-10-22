@@ -60,7 +60,7 @@ class ProductsController extends Controller
         if($codePro->count() === 0){
             $link = $request->file('picture')->store('public/products');
             $link = Storage::url($link);
-            $data = $request->all();
+            $data = $request->validated();
             $data['picture'] = $link;
             Products::create($data);
             return redirect()->route('products.index')->with('status', 'Producto creado con exito');
@@ -117,7 +117,7 @@ class ProductsController extends Controller
             if(Storage::delete($product->picture)){
                 $link = $request->file('picture')->store('public/products');
                 $link = Storage::url($link);
-                $data = $request->all();
+                $data = $request->validated();
                 $data['picture'] = $link;
                 $product->update($data);
                 return redirect()->route('products.index')->with('status', 'Producto actualizado con exito');

@@ -28,7 +28,7 @@ class TeamRequest extends FormRequest
             'lastName' => 'required',
             'position' => 'required',
             'state' => 'required',
-            'imagen' => 'mimes:jpg,jpeg,png'
+            'imagen' => 'nullable|image|mimes:jpg,jpeg,png|extensions:jpg,jpeg,png|max:5120'
         ];
     }
 

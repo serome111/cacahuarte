@@ -34,18 +34,11 @@ class ContactUsController extends Controller
 
     public function filter(Request $request)
     {   
-        if ($request->input('text') == '') {
-            $contacts = ContactUs::get();
-            return response()->json($contacts);
+        $data = $request->validate(['text' => 'nullable|string|max:255']);
+        $text = $data['text'] ?? '';
+        if ($text === '') {
+            return response()->json(ContactUs::get());
         }
-        try {
-            $request->validate([
-                'text' => 'required|string',
-            ]);
-        } catch (ValidationException $e) {
-            return response()->json(['error' => 'Valor no valido o en 0'], 422);
-        }
-        $text = $request->input('text');
         $contacts = ContactUs::where('email', 'LIKE', "%$text%")->orWhere('subject', 'LIKE', "%$text%")->orWhere('name', 'LIKE', "%$text%")->get();
         if ($contacts->isEmpty()) {
             return response()->json([]);
@@ -61,9 +54,15 @@ class ContactUsController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string|max:255',
+        ]);
         $is_spam = EmailSpam::where('email', $request->input('email'))->first();
         if (!$is_spam) {
-            ContactUs::create($request->all());
+            ContactUs::create($data);
         }
         return "OK";
     }
@@ -117,7 +116,11 @@ class ContactUsController extends Controller
 
     public function bulkDestroy(Request $request)
     {
-        $ids = $request->input('ids');
+        $data = $request->validate([
+            'ids' => 'required|array|min:1|max:500',
+            'ids.*' => 'required|integer|min:1|distinct',
+        ]);
+        $ids = $data['ids'];
         $spam = ContactUs::whereIn('id', $ids)->pluck('email');
         // Crear un array de datos a insertar
         $data = $spam->map(function ($email) {

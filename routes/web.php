@@ -58,7 +58,7 @@ Route::get('/valores', function () {
 })->name('valores');
 
 #voleting
-Route::post('bulleting',[bulletingController::class, 'store'])->name('bulleting');
+Route::post('bulleting',[bulletingController::class, 'store'])->name('bulleting')->middleware('throttle:5,1');
 
 // Route::get('/banner','App\Http\Controllers\bannerController@index')->name('banner');
 Route::resource('banner', bannerController::class,['except' => ['show']])->middleware('auth');
@@ -94,13 +94,13 @@ Route::resource('faq', FaqController::class)->except(['show'])->middleware('auth
 Route::resource('team', TeamController::class)->except(['show'])->middleware('auth');
 // Contact us
 Route::resource('contact_us', ContactUsController::class)->only(['index','destroy'])->middleware('auth');
-Route::post('/contact_us/filter','App\Http\Controllers\ContactUsController@filter')->name('filter-message');
-Route::post('/contact-us/bulk-destroy', [ContactUsController::class, 'bulkDestroy'])->name('contact_us.bulk_destroy');
+Route::post('/contact_us/filter','App\Http\Controllers\ContactUsController@filter')->name('filter-message')->middleware('auth');
+Route::post('/contact-us/bulk-destroy', [ContactUsController::class, 'bulkDestroy'])->name('contact_us.bulk_destroy')->middleware('auth');
 
 
-Route::resource('contact_us', ContactUsController::class)->only(['store']);
+Route::resource('contact_us', ContactUsController::class)->only(['store'])->middleware('throttle:5,1');
 
 
-Route::resource('users', UserController::class)->only(['index','store','destroy'])->middleware('auth');
+Route::resource('users', UserController::class)->only(['index','store','destroy'])->middleware(['auth', 'can:manage-users']);
 
 Auth::routes(['register' => False]);
