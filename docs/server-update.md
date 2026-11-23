@@ -10,9 +10,9 @@ Identificar si el sitio usa Docker, PHP-FPM, Apache/mod_php o un panel de hostin
 
 ## 2. Actualizar PHP
 
-Instalar una versión estable con parche: PHP **8.3.36 o posterior de 8.3**, **8.4.27 o posterior de 8.4**, o **8.5.12 o posterior de 8.5**. Para este proyecto se valida 8.3.36. Actualizar también las extensiones PHP instaladas desde el mismo proveedor.
+Instalar una versión estable con parche: PHP **8.3.37 o posterior de 8.3**, **8.4.28 o posterior de 8.4**, o **8.5.13 o posterior de 8.5**. Para este proyecto se valida 8.3.37. Actualizar también las extensiones PHP instaladas desde el mismo proveedor.
 
-En Ubuntu/Debian, si ya se usa PHP 8.3 con FPM y los repositorios configurados ofrecen 8.3.36 o posterior:
+En Ubuntu/Debian, si ya se usa PHP 8.3 con FPM y los repositorios configurados ofrecen 8.3.37 o posterior:
 
 ```sh
 sudo apt-get update
@@ -29,6 +29,16 @@ sudo systemctl restart php8.3-fpm
 ```
 
 Si se usa Apache con mod_php, reiniciar Apache (`sudo systemctl restart apache2`). En paneles o contenedores usar el reinicio correspondiente. Confirmar que el sitio está conectado al servicio actualizado y que no quedan trabajadores web antiguos en ejecución.
+
+En nginx, configurar la raíz del sitio en `public/` y añadir este bloque al servidor virtual antes de recargar la configuración:
+
+```nginx
+location = /web.config {
+    return 404;
+}
+```
+
+Apache deniega el acceso mediante `public/.htaccess` si el virtual host permite sus directivas. IIS utiliza el archivo como configuración del sitio.
 
 ## 3. Actualizar el proyecto
 
@@ -70,9 +80,12 @@ docker compose exec laravel.test composer check-platform-reqs --no-dev
 
 La reconstrucción debe obtener paquetes corregidos; cambiar `8.0` a `8.3` en YAML por sí solo no instala el parche. Si el verificador falla, no publicar esa imagen. Nunca usar `docker compose down -v` como paso de actualización.
 
+Los puertos publicados por Sail solo escuchan en loopback. Para migrar MySQL, respaldar y probar primero la actualización con una copia del volumen. Seleccionar después una imagen 8.4 LTS que incluya los parches del proveedor mediante `MYSQL_IMAGE_TAG`. El valor predeterminado conserva 8.0 para evitar una migración automática de volúmenes existentes.
+
 ## 4. Comprobar
 
 - Repetir `php tools/check-php-security.php` y comprobar por separado la versión del servicio web desde el panel o binario FPM/Apache. No publicar `phpinfo()`.
+- En el dominio autorizado, verificar mediante HEAD que `/.env`, `/cacahuarte.sql`, `/config/app.php`, `/composer.lock` y `/web.config` devuelvan 403 o 404.
 - Revisar inicio, inicio de sesión, productos, iconos, imágenes y formulario de contacto.
 - Un visitante debe recibir rechazo al consultar o borrar mensajes mediante las rutas administrativas.
 - Revisar registros de acceso y de PHP por archivos, procesos o solicitudes anómalas. Instalar el parche no elimina una intrusión previa.
