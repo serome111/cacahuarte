@@ -30,7 +30,7 @@ sudo systemctl restart php8.3-fpm
 
 Si se usa Apache con mod_php, reiniciar Apache (`sudo systemctl restart apache2`). En paneles o contenedores usar el reinicio correspondiente. Confirmar que el sitio está conectado al servicio actualizado y que no quedan trabajadores web antiguos en ejecución.
 
-En nginx, configurar la raíz del sitio en `public/` y añadir este bloque al servidor virtual antes de recargar la configuración:
+En Torrente, el sitio de nginx está en `/etc/nginx/sites-available/cacahuarte`, con raíz `/var/www/html/cacahuarte/public` y el socket `/run/php/php8.3-fpm.sock`. En el bloque HTTPS, añadir esta regla:
 
 ```nginx
 location = /web.config {
@@ -38,11 +38,11 @@ location = /web.config {
 }
 ```
 
-Apache deniega el acceso mediante `public/.htaccess` si el virtual host permite sus directivas. IIS utiliza el archivo como configuración del sitio.
+Validar y recargar con `sudo nginx -t && sudo systemctl reload nginx`. El archivo de IIS se conserva en `deploy/iis/web.config`, fuera de la raíz pública. En un despliegue IIS, instalar esa plantilla como `public/web.config` para que IIS procese las reglas. En nginx y Apache, dejar la plantilla fuera de `public/`.
 
 ## 3. Actualizar el proyecto
 
-Después de actualizar PHP, desde la carpeta del repositorio y con la CLI de la misma rama parcheada:
+Después de actualizar PHP, configurar `APP_ENV=production` y `APP_DEBUG=false` en el `.env` existente. Desde la carpeta del repositorio, comprobar con `git status --short` si hay cambios locales antes de actualizar. Ejecutar los comandos como la cuenta de despliegue, con la CLI de la misma rama parcheada:
 
 ```sh
 git pull --ff-only
@@ -50,11 +50,12 @@ php tools/check-php-security.php
 composer install --no-dev --prefer-dist --optimize-autoloader
 composer check-platform-reqs --no-dev
 composer audit --no-dev
-php artisan optimize:clear
+php artisan config:clear
+php artisan migrate --force
 php artisan config:cache
 ```
 
-Configurar en `.env` `APP_ENV=production` y `APP_DEBUG=false`. Si el sitio funciona exclusivamente por HTTPS, configurar `SESSION_SECURE_COOKIE=true`. No copiar `.env.example` encima de `.env` existente.
+La configuración de la aplicación desactiva la depuración cuando `APP_ENV=production`. Al actualizar, regenerar la caché para que aplique el cambio. Si el sitio funciona exclusivamente por HTTPS, configurar `SESSION_SECURE_COOKIE=true` antes de regenerar la caché. Conservar el `.env` existente.
 
 Los CSS/JS compilados, fuentes y manifiesto se incluyen en Git, de modo que Node no es necesario en el servidor para publicarlos. Para recompilar, se requiere Node 22 o posterior:
 
@@ -64,7 +65,7 @@ npm audit
 npm run production
 ```
 
-Reiniciar los trabajadores de colas si se usan (`php artisan queue:restart`). Esta actualización no requiere cambios de esquema de base de datos.
+Reiniciar los trabajadores de colas si se usan (`php artisan queue:restart`). Al actualizar desde una revisión anterior a los índices únicos del catálogo y el boletín, la migración se detiene si detecta códigos o correos duplicados. Revisarlos antes de reintentar.
 
 ## Alternativa: Docker Compose/Sail
 
