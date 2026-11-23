@@ -69,7 +69,6 @@ Route::resource('values',ValuesController::class,['except' => ['show','destroy',
 Route::resource('categories',CategoriesController::class)->middleware('auth');
 //Productos
 Route::resource('products',ProductsController::class);
-Route::post('/products/filter','App\Http\Controllers\ProductsController@filter')->name('filter');
 Route::get('/detalles/{product}','App\Http\Controllers\ProductsController@detail')->name('detail');
 Route::get('costos-presupuestos', [CostBudgetController::class, 'index'])->name('costs.index')->middleware('auth');
 Route::post('costos-presupuestos/simular', [CostBudgetController::class, 'simulate'])->name('costs.simulate')->middleware('auth');

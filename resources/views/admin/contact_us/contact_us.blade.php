@@ -6,16 +6,21 @@
 <main class="col-md-12 ms-sm-auto col-lg-10 px-md-4 p-4">
 		<p class="display-4 text-center" id="mensaje-cantidad">Mensajes de nuestros clientes: {{ $cantidad }}</p>
 
-		<div class="mx-auto col-sm-5 pb-4">
-		  <input type="text" class="form-control" id="filter-email" placeholder="Filtrar mensaje..." onkeyup="filter(this);">
-		</div>
-		<div class="col-sm-5 pb-4">
-			<button class="btn btn-danger" onclick="openDeleteFilteredModal()">Eliminar mensajes filtrados</button>
-		</div>
+        <form action="{{ route('contact_us.index') }}" method="GET" class="mx-auto col-sm-5 pb-4">
+            <label for="filter-email" class="form-label">Buscar mensajes</label>
+            <input type="search" class="form-control" id="filter-email" name="text" maxlength="255" value="{{ request('text') }}">
+            <button type="submit" class="btn btn-secondary mt-2">Filtrar</button>
+            <a href="{{ route('contact_us.index') }}" class="btn btn-link mt-2">Limpiar</a>
+        </form>
+        @if ($contact->isNotEmpty())
+            <button type="button" class="btn btn-danger mb-4" data-bs-toggle="modal" data-bs-target="#modalEliminarFiltrados">
+                Eliminar {{ request()->filled('text') ? 'mensajes filtrados' : 'mensajes de esta página' }}
+            </button>
+        @endif
 		<div class="row" id="mensajes-container">
 			@if($contact->isEmpty())
 				<div>
-					<p class="text-muted h3">°No hay mensajes para mostrar</p>
+					<p class="text-muted h3">No hay mensajes para mostrar</p>
 				</div>
 			@else
 			  @foreach($contact as $mensaje)
@@ -28,39 +33,39 @@
 					    <h5 class="card-title">Asunto: {{ $mensaje->subject }}</h5>
 					    <p class="card-text">{{ $mensaje->message }}</p>
 					    <div class="dropdown">
-						  <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						  <button class="btn btn-primary dropdown-toggle" type="button" id="message-action-{{ $mensaje->id }}" data-bs-toggle="dropdown" aria-expanded="false">
 						    Acción
 						  </button>
-						  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+						  <ul class="dropdown-menu" aria-labelledby="message-action-{{ $mensaje->id }}">
 						    <li>
-						    	<a type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#exampleModal1">
-			    					<i class="icofont-garbage"></i> Eliminar
-			    				</a>
-			    			</li>
+							<a type="button" class="dropdown-item text-danger" data-bs-toggle="modal" data-bs-target="#message-delete-{{ $mensaje->id }}">
+								<i class="icofont-garbage"></i> Eliminar
+							</a>
+						</li>
 						  </ul>
 						</div>
 					  </div>
 					  <div class="card-footer text-muted">
-					   	{{ $mensaje->created_at }}
+						{{ $mensaje->created_at }}
 					  </div>
 					</div>
 				</div>
 				<!-- Modal -->
-				<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade" id="message-delete-{{ $mensaje->id }}" tabindex="-1" aria-labelledby="message-confirm-{{ $mensaje->id }}" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
-				        <h5 class="modal-title">Eliminando...</h5>
+				        <h5 class="modal-title" id="message-confirm-{{ $mensaje->id }}">Eliminar mensaje</h5>
 				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 				      </div>
 				      <div class="modal-body">
-				        <p>¿Realmente desea elimiar este mensaje? Una vez hecho no se podrá recuperar.</p>
+				        <p>¿Realmente desea eliminar este mensaje? Una vez hecho no se podrá recuperar.</p>
 				      </div>
 				      <div class="modal-footer">
 				        <form  class="dropdown-item" method="POST" action="{{ route('contact_us.destroy', $mensaje->id) }}">	
-				        	@csrf @method('DELETE')
-					        <a rel="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</a>
-				        	<button type="submit" class="btn btn-primary">Eliminar</button>
+					@csrf @method('DELETE')
+					        <a rel="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</a>
+					<button type="submit" class="btn btn-primary">Eliminar</button>
 						</form>
 				      </div>
 				    </div>
@@ -69,184 +74,61 @@
 			   @endforeach
 			@endif
 		</div>
-		<!-- Modal para eliminar mensajes filtrados -->
+        {{ $contact->links() }}
+
 		<div class="modal fade" id="modalEliminarFiltrados" tabindex="-1" aria-labelledby="modalLabelEliminarFiltrados" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="modalLabelEliminarFiltrados">Eliminar mensajes filtrados</h5>
+						<h5 class="modal-title" id="modalLabelEliminarFiltrados">Eliminar {{ request()->filled('text') ? 'mensajes filtrados' : 'mensajes de esta página' }}</h5>
 						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 					</div>
 					<div class="modal-body">
-						<p>¿Realmente desea eliminar todos los mensajes filtrados? Una vez hecho no se podrán recuperar.</p>
+						<p>¿Realmente desea eliminar los {{ request()->filled('text') ? $contact->total() : $contact->count() }} mensajes y bloquear a sus remitentes? Una vez hecho no se podrán recuperar.</p>
 					</div>
+					<p class="text-danger px-3" role="alert" id="bulk-delete-error" hidden>No se pudieron eliminar los mensajes.</p>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="closeDeleteFilteredModal('modalEliminarFiltrados');">Cerrar</button>
-						<button type="button" class="btn btn-primary" onclick="eliminarMensajesFiltrados()">Eliminar</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-primary" id="confirm-bulk-delete">Eliminar</button>
 					</div>
 				</div>
 			</div>
 		</div>
 </main>
 
-<script type="text/javascript">
-	function filter(value){
-		window.CSRF_TOKEN = '{{ csrf_token() }}';
-		if(value){
-			filter_mail = document.getElementById("filter-email").value;
-		// 	if (filter_mail.trim() === '') {
-        // console.log('Por favor, introduce un texto.');
-        // return;
-    	// }
-			var datos = new FormData();
-			datos.append('text', filter_mail);
-			fetch("{{ route('filter-message') }}",{
-				headers: {
-       			'X-CSRF-TOKEN': window.CSRF_TOKEN
-    			},
-				method: 'POST',
-				body: datos
-			 })
-			.then( res => res.json())
-			.then( data => {
-				console.log(data)
-				actualizarMensajes(data);
-			}).catch(error =>{
-				console.log(error);	
-			  console.log('Se ha encontrado un error en el archivo o web que se hace la peticion');
-			})
+<script>
+    const confirmBulkDelete = document.getElementById('confirm-bulk-delete');
 
-		}
+    confirmBulkDelete.addEventListener('click', async () => {
+        const errorMessage = document.getElementById('bulk-delete-error');
+        confirmBulkDelete.disabled = true;
+        errorMessage.hidden = true;
 
-	}
+        try {
+            const response = await fetch(@json(route('contact_us.bulk_destroy')), {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': @json(csrf_token())
+                },
+                body: JSON.stringify(@json(request()->filled('text')
+                    ? ['text' => request('text')]
+                    : ['ids' => $contact->getCollection()->modelKeys()]))
+            });
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.errors?.text?.[0] ?? 'No se pudieron eliminar los mensajes.');
+            }
 
-	function actualizarMensajes(mensajes) {
-    const container = document.getElementById('mensajes-container');
-    container.innerHTML = ''; // Limpia el contenedor
-	// Actualizar el contador de mensajes
-	const mensajeCantidad = document.getElementById('mensaje-cantidad');
-	mensajeCantidad.textContent = `Mensajes de nuestros clientes: ${mensajes.length}`;
-    if (mensajes.length === 0) {
-        const emptyMessage = document.createElement('p');
-        emptyMessage.textContent = 'No se encontraron mensajes.';
-        container.appendChild(emptyMessage);
-    } else {
-        mensajes.forEach(mensaje => {
-            // Crear elementos de la tarjeta
-            const card = document.createElement('div');
-            card.className = 'card border-secondary mb-3 mensaje-card';
-			card.setAttribute('data-id', mensaje.id);
-
-            const cardHeader = document.createElement('div');
-            cardHeader.className = 'card-header';
-            cardHeader.textContent = `${mensaje.name} - ${mensaje.email}`;
-
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body';
-
-            const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
-            cardTitle.textContent = `Asunto: ${mensaje.subject}`;
-
-            const cardText = document.createElement('p');
-            cardText.className = 'card-text';
-            cardText.textContent = mensaje.message;
-
-            const cardFooter = document.createElement('div');
-            cardFooter.className = 'card-footer text-muted';
-            cardFooter.textContent = mensaje.created_at;
-
-            // Crear botón que dispara el modal
-            const deleteButton = document.createElement('button');
-            deleteButton.className = 'btn btn-danger';
-            deleteButton.textContent = 'Eliminar';
-            deleteButton.setAttribute('data-bs-toggle', 'modal');
-            deleteButton.setAttribute('data-bs-target', `#modalEliminar${mensaje.id}`);
-
-            // Construcción del modal
-            const modal = document.createElement('div');
-            modal.className = 'modal fade';
-            modal.id = `modalEliminar${mensaje.id}`;
-            modal.setAttribute('tabindex', '-1');
-            modal.setAttribute('aria-labelledby', `modalLabelEliminar${mensaje.id}`);
-            modal.setAttribute('aria-hidden', 'true');
-            modal.innerHTML = `
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabelEliminar${mensaje.id}">Eliminando...</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            ¿Realmente desea eliminar este mensaje? Una vez hecho no se podrá recuperar.
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary" onclick="eliminarMensaje(${mensaje.id})">Eliminar</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Añadir elementos a la tarjeta
-            cardBody.appendChild(cardTitle);
-            cardBody.appendChild(cardText);
-            cardBody.appendChild(deleteButton);
-            card.appendChild(cardHeader);
-            card.appendChild(cardBody);
-            card.appendChild(cardFooter);
-
-            // Añadir la tarjeta y el modal al contenedor
-            container.appendChild(card);
-            container.appendChild(modal);
-        });
-    }
-}
-
-function eliminarMensaje(id) {
-    // Lógica para eliminar el mensaje
-    // Puede ser una solicitud fetch a tu servidor para eliminar el mensaje
-    console.log('Eliminar mensaje con id:', id);
-    // Recuerda actualizar la interfaz de usuario después de eliminar
-}
-
-	function openDeleteFilteredModal() {
-        const filteredCards = document.querySelectorAll('.mensaje-card');
-        if (filteredCards.length > 0) {
-            document.getElementById('modalEliminarFiltrados').classList.add('show');
-            document.getElementById('modalEliminarFiltrados').style.display = 'block';
-        } else {
-            alert('No hay mensajes filtrados para eliminar.');
+            const destination = new URL(window.location.href);
+            destination.searchParams.delete('page');
+            window.location.assign(destination);
+        } catch (error) {
+            errorMessage.textContent = error.message;
+            errorMessage.hidden = false;
+            confirmBulkDelete.disabled = false;
         }
-    }
-
-	function closeDeleteFilteredModal(modalId) {
-        const modal = document.getElementById(modalId);
-        modal.classList.remove('show');
-        modal.style.display = 'none';
-    }
-
-	function eliminarMensajesFiltrados() {
-        const filteredCards = document.querySelectorAll('.mensaje-card');
-        const ids = Array.from(filteredCards).map(card => card.getAttribute('data-id'));
-        fetch("{{ route('contact_us.bulk_destroy') }}", {
-            headers: {
-                'X-CSRF-TOKEN': window.CSRF_TOKEN,
-                'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body: JSON.stringify({ ids })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            // Actualiza la UI eliminando las tarjetas de mensajes filtrados
-            filteredCards.forEach(card => card.remove());
-            closeDeleteFilteredModal('modalEliminarFiltrados');
-        }).catch(error => console.error('Error:', error));
-    }
-
-
-
+    });
 </script>
-@endsection()
+@endsection

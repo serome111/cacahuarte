@@ -2,11 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Models\ContactUs;
+use App\Models\Products;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class SecurityTest extends TestCase
@@ -76,6 +80,57 @@ class SecurityTest extends TestCase
         $user->id = 1;
         $this->actingAs($user)->postJson('/contact-us/bulk-destroy', ['ids' => ['invalid']])
             ->assertUnprocessable()->assertJsonValidationErrors('ids.0');
+    }
+
+    public function test_catalog_hides_inactive_products_and_keeps_the_old_picture_if_saving_fails(): void
+    {
+        require_once database_path('migrations/2021_02_01_232751_create_products_table.php');
+        (new \CreateProductsTable())->up();
+
+        Storage::fake('public')->put('products/original.png', 'original');
+        $product = Products::create([
+            'name' => 'Cacao',
+            'code' => 'CAC01',
+            'price' => '100',
+            'stock' => 1,
+            'categorie_id' => 1,
+            'description' => 'Cacao',
+            'state' => 0,
+            'picture' => '/storage/products/original.png',
+        ]);
+
+        $this->get('/detalles/'.$product->id)->assertNotFound();
+
+        $user = new User();
+        $user->id = 1;
+        Products::updating(fn () => false);
+        $png = base64_decode('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jRZkAAAAASUVORK5CYII=');
+        $data = $product->getAttributes();
+        $data['picture'] = UploadedFile::fake()->createWithContent('nueva.png', $png);
+
+        $this->actingAs($user)->put('/products/'.$product->id, $data)->assertServerError();
+
+        $this->assertSame('/storage/products/original.png', $product->fresh()->picture);
+        $this->assertSame(['products/original.png'], Storage::disk('public')->allFiles('products'));
+    }
+
+    public function test_contact_filter_paginates_and_bulk_delete_applies_the_filter_across_pages(): void
+    {
+        $user = new User();
+        $user->id = 1;
+        $message = ['name' => 'Cliente', 'email' => 'cliente@example.com', 'message' => 'Hola'];
+        for ($i = 0; $i < 21; $i++) {
+            ContactUs::create($message + ['subject' => 'Pedido']);
+        }
+        ContactUs::create($message + ['subject' => 'Otra consulta']);
+
+        $this->actingAs($user)->postJson('/contact_us/filter', ['text' => 'Pedido'])
+            ->assertOk()->assertJsonPath('total', 21)->assertJsonCount(20, 'data');
+        $this->postJson('/contact-us/bulk-destroy', ['text' => 'Pedido'])->assertOk();
+
+        $this->assertDatabaseCount('contact_us', 1);
+        $this->assertDatabaseHas('contact_us', ['subject' => 'Otra consulta']);
+        $this->assertDatabaseCount('email_spam', 1);
     }
 
     public function test_uploads_reject_images_with_executable_extensions(): void

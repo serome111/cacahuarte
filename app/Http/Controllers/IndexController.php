@@ -25,8 +25,8 @@ class IndexController extends Controller
         // return view('welcome');
         return view('index',[
             'banners' => Banners::where('state', 1)->get(),
-            'global_phone' => env('global_phone', ''),
-            'global_phone2' => env('global_phone2', ''),
+            'global_phone' => config('site.phone'),
+            'global_phone2' => config('site.secondary_phone'),
             'tarjetas' => WhyAboutUs::select('why_about_us.*','icons.icon_class')
                 ->join('icons', 'why_about_us.icon_id', '=', 'icons.id')
                 ->get(),
@@ -38,7 +38,7 @@ class IndexController extends Controller
             ->get(),
             'values' => Values::where('state', 1)->get(),
             'team' => Team::where('state', 1)->get(),
-            'products' => Products::select('id','name','code','stock','picture')->where('state', 1)->take(10)->get(),
+            'products' => Products::select('id','name','code','stock','picture')->published()->take(10)->get(),
             'faqs' => Faq::latest('updated_at')->get()
         ]);
     }

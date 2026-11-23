@@ -6,7 +6,12 @@ use App\Http\Requests\ProductReques;
 use App\Models\Categories;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Database\UniqueConstraintViolationException;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
+use RuntimeException;
+use Throwable;
 
 class ProductsController extends Controller
 {
@@ -15,25 +20,39 @@ class ProductsController extends Controller
         $this->middleware('auth')->except('detail');
     }
 
-    public function index()
+    public function index(Request $request)
     {
-       return view('admin.products.products',[
-            'categories' => Categories::select('id','name')->get(),
-            'products' => Products::select('id','name','code','stock','picture','state')->paginate(10)
-       ]);
-    }
-    public function detail($id)
-    {
-        return view('public.detailProduc',[
-            'global_phone' => env('global_phone', ''),
-            'product' =>  Products::findOrFail($id)
+        $filters = $request->validate([
+            'search' => 'nullable|string|max:255',
+            'category' => 'nullable|integer|min:1',
+            'state' => 'nullable|in:0,1',
+        ]);
+
+        $products = Products::select('id', 'name', 'code', 'stock', 'picture', 'state')
+            ->when(isset($filters['search']), function ($query) use ($filters) {
+                $search = '%'.$filters['search'].'%';
+                $query->where(fn ($query) => $query->where('name', 'like', $search)->orWhere('code', 'like', $search));
+            })
+            ->when($filters['category'] ?? null, fn ($query, $category) => $query->where('categorie_id', $category))
+            ->when(isset($filters['state']), fn ($query) => $query->where('state', $filters['state']))
+            ->orderBy('id')
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.products.products', [
+            'categories' => Categories::select('id', 'name')->orderBy('name')->get(),
+            'products' => $products,
         ]);
     }
 
-    public function filter(Request $request)
+    public function detail($id)
     {
-        return "hola fetch";
+        return view('public.detailProduc', [
+            'global_phone' => config('site.phone'),
+            'product' => Products::published()->findOrFail($id),
+        ]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -56,17 +75,9 @@ class ProductsController extends Controller
      */
     public function store(ProductReques $request)
     {
-        $codePro = Products::select('code')->where('code', $request->code )->get();
-        if($codePro->count() === 0){
-            $link = $request->file('picture')->store('public/products');
-            $link = Storage::url($link);
-            $data = $request->validated();
-            $data['picture'] = $link;
-            Products::create($data);
-            return redirect()->route('products.index')->with('status', 'Producto creado con exito');
-        }else{
-            return redirect()->route('products.create')->with('status', 'No se pudo crear el Producto el codigo ya existe');
-        }
+        $this->saveProduct($request, new Products);
+
+        return redirect()->route('products.index')->with('status', 'Producto creado con éxito');
     }
 
     /**
@@ -105,44 +116,80 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductReques $request,Products $product)
+    public function update(ProductReques $request, Products $product)
     {
-        if (empty($request->picture)) {
-            $product->update($request->validated());
-            return redirect()->route('products.index')->with('status', 'Producto actualizado con exito');
-        }else{
-            $remplazar = array("storage","Storage");
-            $link = str_replace($remplazar, "public", $product->picture);
-            $product->picture = $link;
-            if(Storage::delete($product->picture)){
-                $link = $request->file('picture')->store('public/products');
-                $link = Storage::url($link);
-                $data = $request->validated();
-                $data['picture'] = $link;
-                $product->update($data);
-                return redirect()->route('products.index')->with('status', 'Producto actualizado con exito');
-            }else{
-                return redirect()->route('values.index')->with('status', 'error al actualizar imagen del producto');
+        $this->saveProduct($request, $product);
+
+        return redirect()->route('products.index')->with('status', 'Producto actualizado con éxito');
+    }
+
+    public function destroy(Products $product)
+    {
+        $picture = DB::transaction(function () use ($product) {
+            $current = Products::lockForUpdate()->findOrFail($product->getKey());
+            if (!$current->delete()) {
+                throw new RuntimeException('No se pudo eliminar el producto.');
             }
+
+            return $current->picture;
+        });
+
+        $this->deletePicture($picture);
+
+        return redirect()->route('products.index')->with('status', 'Producto eliminado con éxito');
+    }
+
+    private function saveProduct(ProductReques $request, Products $product): void
+    {
+        $data = $request->safe()->except('picture');
+        $newPath = null;
+
+        try {
+            if ($request->hasFile('picture')) {
+                $newPath = $request->file('picture')->store('products', 'public');
+                if (!$newPath) {
+                    throw ValidationException::withMessages(['picture' => 'No se pudo guardar la imagen.']);
+                }
+                $data['picture'] = '/storage/'.$newPath;
+            }
+
+            $previousPicture = DB::transaction(function () use ($product, $data) {
+                $current = $product->exists ? Products::lockForUpdate()->findOrFail($product->getKey()) : $product;
+                $previousPicture = $current->picture;
+                if (!$current->fill($data)->save()) {
+                    throw new RuntimeException('No se pudo guardar el producto.');
+                }
+
+                return $previousPicture;
+            });
+        } catch (Throwable $exception) {
+            if ($newPath) {
+                $this->deletePicture('/storage/'.$newPath);
+            }
+            if ($exception instanceof UniqueConstraintViolationException) {
+                throw ValidationException::withMessages(['code' => 'Ya existe un producto con ese código.']);
+            }
+            throw $exception;
+        }
+
+        if ($newPath) {
+            $this->deletePicture($previousPicture);
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Products $product)
+    private function deletePicture(?string $url): void
     {
-        $remplazar = array("storage","Storage");
-        $link = str_replace($remplazar, "public", $product->picture);
-        $product->picture = $link;
-        if(Storage::delete($product->picture)){
-            $product->delete();
-            return redirect()->route('products.index')->with('status', 'Producto Eliminado con exito');
-        }else{
-            return redirect()->route('banner.index')->with('status', 'Hubo un error al eliminar el Producto');
+        $path = parse_url($url ?? '', PHP_URL_PATH);
+        if (!is_string($path) || !preg_match('~^/storage/(products/[^/]+)$~iD', $path, $matches)) {
+            return;
+        }
+
+        try {
+            if (!Storage::disk('public')->delete($matches[1])) {
+                report(new RuntimeException('No se pudo limpiar una imagen de producto.'));
+            }
+        } catch (Throwable $exception) {
+            report($exception);
         }
     }
 }

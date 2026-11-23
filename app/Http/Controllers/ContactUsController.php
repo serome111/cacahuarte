@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\ContactUs;
 use App\Models\EmailSpam;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class ContactUsController extends Controller
 {
@@ -13,37 +15,41 @@ class ContactUsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('admin.contact_us.contact_us',[
-            'global_phone' => env('global_phone', ''),
-            'contact' => ContactUs::latest('updated_at')->get(),
-            'cantidad' => ContactUs::latest('updated_at')->get()->count()
+        $contact = $this->filteredMessages($request)->withQueryString();
+
+        return view('admin.contact_us.contact_us', [
+            'global_phone' => config('site.phone'),
+            'contact' => $contact,
+            'cantidad' => $contact->total(),
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function filter(Request $request)
     {
-        //
+        return response()->json($this->filteredMessages($request));
     }
 
-    public function filter(Request $request)
-    {   
+    private function filteredMessages(Request $request)
+    {
         $data = $request->validate(['text' => 'nullable|string|max:255']);
-        $text = $data['text'] ?? '';
-        if ($text === '') {
-            return response()->json(ContactUs::get());
-        }
-        $contacts = ContactUs::where('email', 'LIKE', "%$text%")->orWhere('subject', 'LIKE', "%$text%")->orWhere('name', 'LIKE', "%$text%")->get();
-        if ($contacts->isEmpty()) {
-            return response()->json([]);
-        }
-        return response()->json($contacts);
+
+        return $this->messageQuery($data['text'] ?? null)
+            ->latest('updated_at')
+            ->orderByDesc('id')
+            ->paginate(20);
+    }
+
+    private function messageQuery(?string $search)
+    {
+        return ContactUs::query()
+            ->when($search !== null, function ($query) use ($search) {
+                $text = '%'.$search.'%';
+                $query->where(fn ($query) => $query->where('email', 'like', $text)
+                    ->orWhere('subject', 'like', $text)
+                    ->orWhere('name', 'like', $text));
+            });
     }
 
     /**
@@ -117,20 +123,27 @@ class ContactUsController extends Controller
     public function bulkDestroy(Request $request)
     {
         $data = $request->validate([
-            'ids' => 'required|array|min:1|max:500',
+            'ids' => 'required_without:text|prohibits:text|array|min:1|max:500',
+            'text' => 'required_without:ids|string|max:255',
             'ids.*' => 'required|integer|min:1|distinct',
         ]);
-        $ids = $data['ids'];
-        $spam = ContactUs::whereIn('id', $ids)->pluck('email');
-        // Crear un array de datos a insertar
-        $data = $spam->map(function ($email) {
-            return ['email' => $email, 'created_at' => now(), 'updated_at' => now()];
-        })->toArray();
+        DB::transaction(function () use ($data) {
+            $query = isset($data['ids'])
+                ? ContactUs::whereIn('id', $data['ids'])
+                : $this->messageQuery($data['text'])->limit(501);
+            $messages = $query->orderBy('id')->lockForUpdate()->get(['id', 'email']);
 
-        // Insertar los datos en la tabla email_spam
-        EmailSpam::insert($data);
-        // Eliminar lo mensajes
-        ContactUs::whereIn('id', $ids)->delete();
+            if ($messages->count() > 500) {
+                throw ValidationException::withMessages(['text' => 'Limita la búsqueda a 500 mensajes o menos.']);
+            }
+
+            foreach ($messages->pluck('email')->unique() as $email) {
+                EmailSpam::firstOrCreate(['email' => $email]);
+            }
+
+            ContactUs::whereIn('id', $messages->modelKeys())->delete();
+        });
+
         return response()->json(['success' => 'Mensajes eliminados correctamente']);
     }
 }

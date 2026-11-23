@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductReques extends FormRequest
 {
@@ -23,20 +24,27 @@ class ProductReques extends FormRequest
      */
     public function rules()
     {
-         return [
-            'code' => 'required',
+        $product = $this->route('product');
+        $uniqueCode = Rule::unique('products', 'code');
+        if ($product instanceof \App\Models\Products) {
+            $uniqueCode->ignore($product);
+        }
+
+        return [
+            'code' => ['required', 'string', 'max:255', $uniqueCode],
             'name' => 'required',
             'price' => 'required',
             'stock' => 'required',
             'categorie_id' => 'required',
             'state' => 'required',
-            'picture' => 'nullable|image|mimes:jpg,jpeg,png|extensions:jpg,jpeg,png|max:5120',
+            'picture' => [$this->isMethod('POST') ? 'required' : 'nullable', 'image', 'mimes:jpg,jpeg,png', 'extensions:jpg,jpeg,png', 'max:5120'],
             'description' => 'required'
         ];
     }
     public function messages()
     {
         return[
+            'code.unique' => 'Ya existe un producto con ese código.',
             'code.required' => 'Debes poner un codigo',
             'name.required' => 'Debes poner un nombre',
             'price.required' => 'Debes poner un precio',
